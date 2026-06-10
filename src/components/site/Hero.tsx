@@ -27,7 +27,7 @@ export default function Hero() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-md text-base text-ink/60 sm:text-lg lg:mx-0">
-            Una sola membresía y accedés a beneficios de uso cotidiano:
+            Una sola membresía y accedes a beneficios de uso cotidiano:
             estacionamiento, restaurantes, café, entretenimiento y más. Sin
             compras online, fáciles de redimir.
           </p>
@@ -52,7 +52,7 @@ export default function Hero() {
               <span className="text-brand">✓</span> Sin costo para los negocios
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="text-brand">✓</span> Ganás por referir
+              <span className="text-brand">✓</span> Ganas por referir
             </span>
           </div>
         </div>

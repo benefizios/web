@@ -8,12 +8,12 @@ export default function LoginPage() {
   return (
     <AuthShell
       title="Bienvenido de nuevo"
-      subtitle="Ingresá para ver tus beneficios."
+      subtitle="Ingresa para ver tus beneficios."
       footer={
         <>
-          ¿No tenés cuenta?{" "}
+          ¿No tienes cuenta?{" "}
           <Link href="/registro" className="font-semibold text-ink underline">
-            Registrate
+            Regístrate
           </Link>
         </>
       }

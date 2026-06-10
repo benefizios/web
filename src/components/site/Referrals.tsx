@@ -11,9 +11,9 @@ export default function Referrals() {
               Tu red te paga
             </h2>
             <p className="mt-4 max-w-md text-ink/70">
-              Cada vez que compartís tu link o código QR y alguien se suma con su
-              pago, te pagamos un monto fijo directo a la tarjeta con la que te
-              registraste. Así de simple.
+              Cada vez que compartes tu enlace o código QR y alguien se suma con
+              su pago, te pagamos un monto fijo directo a la tarjeta con la que
+              te registraste. Así de simple.
             </p>
             <Link
               href="/registro"
@@ -25,9 +25,9 @@ export default function Referrals() {
 
           <div className="grid gap-3 sm:grid-cols-3">
             {[
-              { k: "Compartís", v: "Link, WhatsApp o QR", icon: "🔗" },
+              { k: "Compartes", v: "Enlace, WhatsApp o QR", icon: "🔗" },
               { k: "Se suma", v: "Tu referido paga", icon: "🤝" },
-              { k: "Cobrás", v: "Directo a tu tarjeta", icon: "💳" },
+              { k: "Cobras", v: "Directo a tu tarjeta", icon: "💳" },
             ].map((c) => (
               <div
                 key={c.k}

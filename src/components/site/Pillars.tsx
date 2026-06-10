@@ -2,17 +2,17 @@ const pillars = [
   {
     icon: "🛍️",
     title: "Beneficios de uso cotidiano",
-    desc: "Nada de promos que nunca usás. Descuentos en lo de todos los días: comer, estacionar, un café, salir.",
+    desc: "Nada de promos que nunca usas. Descuentos en lo de todos los días: comer, estacionar, un café, salir.",
   },
   {
     icon: "⚡",
     title: "Fáciles de redimir",
-    desc: "Mostrás el cupón en el local con QR, código de barras o un texto. Sin compras online previas.",
+    desc: "Muestras el cupón en el local con QR, código de barras o un texto. Sin compras online previas.",
   },
   {
     icon: "💸",
-    title: "Ganás por referir",
-    desc: "Compartí tu link o código QR. Cuando alguien se suma con vos, cobrás directo a tu tarjeta.",
+    title: "Ganas por referir",
+    desc: "Comparte tu enlace o código QR. Cuando alguien se suma contigo, cobras directo a tu tarjeta.",
   },
 ];
 

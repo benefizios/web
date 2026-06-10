@@ -7,13 +7,13 @@ export const metadata: Metadata = { title: "Crear cuenta" };
 export default function RegistroPage() {
   return (
     <AuthShell
-      title="Creá tu cuenta"
-      subtitle="Empezá a ahorrar con tu membresía Benefizios."
+      title="Crea tu cuenta"
+      subtitle="Empieza a ahorrar con tu membresía Benefizios."
       footer={
         <>
-          ¿Ya tenés cuenta?{" "}
+          ¿Ya tienes cuenta?{" "}
           <Link href="/login" className="font-semibold text-ink underline">
-            Iniciá sesión
+            Inicia sesión
           </Link>
         </>
       }
@@ -40,7 +40,7 @@ export default function RegistroPage() {
           Crear cuenta
         </button>
         <p className="text-center text-xs text-ink/40">
-          Al registrarte aceptás los términos y la política de privacidad.
+          Al registrarte aceptas los términos y la política de privacidad.
         </p>
       </form>
     </AuthShell>

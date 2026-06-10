@@ -13,11 +13,11 @@ const faqs = [
   },
   {
     q: "¿Cómo redimo un beneficio?",
-    a: "Con tu membresía activa, abrís el cupón en la app y lo mostrás en el local mediante un QR, un código de barras o un texto. La hora en vivo confirma que es válido en el momento.",
+    a: "Con tu membresía activa, abres el cupón en la app y lo muestras en el local mediante un QR, un código de barras o un texto. La hora en vivo confirma que es válido en el momento.",
   },
   {
     q: "¿Cómo funciona el plan de referidos?",
-    a: "Compartís tu link o código QR por WhatsApp, SMS, correo o en persona. Cuando alguien se registra y paga con tu referencia, cobrás un monto fijo directo a tu tarjeta.",
+    a: "Compartes tu enlace o código QR por WhatsApp, SMS, correo o en persona. Cuando alguien se registra y paga con tu referencia, cobras un monto fijo directo a tu tarjeta.",
   },
   {
     q: "¿Es seguro pagar con tarjeta?",
@@ -65,7 +65,7 @@ export default function Faq() {
       <div className="text-center">
         <p className="text-sm font-semibold text-brand">Preguntas frecuentes</p>
         <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-          Lo que solés preguntarte
+          Lo que sueles preguntarte
         </h2>
       </div>
 

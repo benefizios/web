@@ -1,23 +1,23 @@
 const steps = [
   {
     n: "01",
-    title: "Activá tu membresía",
-    desc: "Te registrás y pagás tu membresía mensual con tarjeta. Cobros recurrentes seguros (PCI DSS).",
+    title: "Activa tu membresía",
+    desc: "Te registras y pagas tu membresía mensual con tarjeta. Cobros recurrentes seguros (PCI DSS).",
   },
   {
     n: "02",
     title: "Explorá los beneficios",
-    desc: "Con la membresía activa se desbloquean todos los descuentos disponibles cerca tuyo.",
+    desc: "Con la membresía activa se desbloquean todos los descuentos disponibles cerca de ti.",
   },
   {
     n: "03",
-    title: "Redimí en el local",
-    desc: "Mostrás el cupón con QR, código de barras o texto. La hora en vivo evita capturas de pantalla.",
+    title: "Redime en el local",
+    desc: "Muestras el cupón con QR, código de barras o texto. La hora en vivo evita capturas de pantalla.",
   },
   {
     n: "04",
-    title: "Invitá y ganá",
-    desc: "Compartí tu link o código QR. Por cada referido que se suma, cobrás directo a tu tarjeta.",
+    title: "Invita y gana",
+    desc: "Comparte tu enlace o código QR. Por cada referido que se suma, cobras directo a tu tarjeta.",
   },
 ];
 

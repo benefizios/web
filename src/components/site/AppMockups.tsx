@@ -148,13 +148,13 @@ function ReferralScreen() {
         🎁
       </div>
       <p className="mt-3 font-display text-sm font-bold text-ink">
-        Invitá y ganá
+        Invita y gana
       </p>
       <p className="mt-1 text-[10px] leading-snug text-ink/60">
-        Ganás dinero por cada amigo que se suma con tu link o código QR.
+        Gana dinero por cada amigo que se suma con tu enlace o código QR.
       </p>
       <div className="mt-3 w-full rounded-xl bg-ink px-3 py-2 text-[10px] font-semibold text-white">
-        Compartir mi link
+        Compartir mi enlace
       </div>
     </div>
   );

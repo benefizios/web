@@ -24,7 +24,7 @@ export default function Waitlist() {
           </span>
         </h2>
         <p className="mx-auto mt-4 max-w-md text-ink/60">
-          Dejanos tu correo y te avisamos apenas Benefizios esté disponible en tu
+          Déjanos tu correo y te avisamos apenas Benefizios esté disponible en tu
           ciudad.
         </p>
 
@@ -52,7 +52,7 @@ export default function Waitlist() {
               type="submit"
               className="rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
             >
-              Avisame
+              Avísame
             </button>
           </form>
         )}
