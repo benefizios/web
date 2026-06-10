@@ -1,0 +1,65 @@
+"use client";
+
+import { useState } from "react";
+
+export default function Waitlist() {
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+
+  // TODO(supabase): persistir el email en una tabla `waitlist`.
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email) return;
+    setSent(true);
+  }
+
+  return (
+    <section className="relative overflow-hidden bg-cream">
+      <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 lg:py-24">
+        <h2 className="mx-auto max-w-2xl font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+          Sé de los primeros en{" "}
+          <span className="relative whitespace-nowrap">
+            <span className="relative z-10">ahorrar</span>
+            <span className="absolute inset-x-0 bottom-1 z-0 h-3 -rotate-1 bg-brand/60" />
+          </span>
+        </h2>
+        <p className="mx-auto mt-4 max-w-md text-ink/60">
+          Dejanos tu correo y te avisamos apenas Benefizios esté disponible en tu
+          ciudad.
+        </p>
+
+        {sent ? (
+          <div className="mx-auto mt-8 max-w-md rounded-2xl border border-brand/40 bg-white px-6 py-5">
+            <p className="font-display font-bold text-ink">¡Listo! 🎉</p>
+            <p className="mt-1 text-sm text-ink/60">
+              Te sumamos a la lista. Te escribimos a <b>{email}</b> muy pronto.
+            </p>
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row"
+          >
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="tu@correo.com"
+              className="w-full rounded-full border border-haze bg-white px-5 py-3.5 text-sm text-ink outline-none transition-colors focus:border-brand"
+            />
+            <button
+              type="submit"
+              className="rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
+            >
+              Avisame
+            </button>
+          </form>
+        )}
+        <p className="mt-3 text-xs text-ink/40">
+          Sin spam. Solo te escribimos para el lanzamiento.
+        </p>
+      </div>
+    </section>
+  );
+}
