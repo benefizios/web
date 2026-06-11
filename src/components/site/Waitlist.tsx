@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Brand from "@/components/Brand";
 
 export default function Waitlist() {
   const [email, setEmail] = useState("");
@@ -24,7 +25,7 @@ export default function Waitlist() {
           </span>
         </h2>
         <p className="mx-auto mt-4 max-w-md text-ink/60">
-          Déjanos tu correo y te avisamos apenas Benefizios esté disponible en tu
+          Déjanos tu correo y te avisamos apenas <Brand /> esté disponible en tu
           ciudad.
         </p>
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AuthShell, { Field } from "@/components/auth/AuthShell";
+import Brand from "@/components/Brand";
 
 export const metadata: Metadata = { title: "Crear cuenta" };
 
@@ -8,7 +9,7 @@ export default function RegistroPage() {
   return (
     <AuthShell
       title="Crea tu cuenta"
-      subtitle="Empieza a ahorrar con tu membresía Benefizios."
+      subtitle={<>Empieza a ahorrar con tu membresía <Brand />.</>}
       footer={
         <>
           ¿Ya tienes cuenta?{" "}

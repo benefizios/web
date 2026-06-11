@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Brand from "@/components/Brand";
 
 /* Marco de teléfono reutilizable */
 function PhoneFrame({
@@ -45,7 +46,7 @@ function HomeScreen() {
       </div>
 
       <p className="mt-3 text-[11px] font-semibold text-ink">
-        Benefizios para ti
+        <Brand /> para ti
       </p>
       <div className="mt-1.5 flex items-center gap-1.5 rounded-full bg-mist px-3 py-1.5">
         <span className="text-[10px] text-ink/40">🔍</span>

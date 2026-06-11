@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Brand from "@/components/Brand";
 
 export default function Footer() {
   return (
@@ -23,7 +24,7 @@ export default function Footer() {
 
           <div className="flex flex-col gap-2 text-sm">
             <a href="#beneficios" className="text-ink/60 hover:text-ink">
-              Benefizios
+              <Brand />
             </a>
             <a href="#como-funciona" className="text-ink/60 hover:text-ink">
               Cómo funciona
@@ -52,7 +53,10 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-black/5 pt-6 text-xs text-ink/40 sm:flex-row">
-          <p>© {new Date().getFullYear()} Benefizios. Todos los derechos reservados.</p>
+          <p>
+            © {new Date().getFullYear()} <Brand />. Todos los derechos
+            reservados.
+          </p>
           <div className="flex gap-5">
             <Link href="/login" className="hover:text-ink">
               Iniciar sesión

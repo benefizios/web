@@ -1,18 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import Brand from "@/components/Brand";
 
 const faqs = [
   {
     q: "¿Cuánto cuesta la membresía?",
-    a: "Manejamos planes mensuales accesibles. El precio final lo confirmamos al lanzamiento, pero la idea es que un solo benefizio ya cubra el costo del mes.",
+    a: (
+      <>
+        Manejamos planes mensuales accesibles. El precio final lo confirmamos al
+        lanzamiento, pero la idea es que un solo <Brand>benefizio</Brand> ya
+        cubra el costo del mes.
+      </>
+    ),
   },
   {
     q: "¿Los negocios pagan por participar?",
     a: "No. A diferencia de otras plataformas, los comercios no pagan nada: solo ofrecen el descuento. Eso hace que el modelo sea sostenible y que se sumen más locales.",
   },
   {
-    q: "¿Cómo redimo un benefizio?",
+    q: (
+      <>
+        ¿Cómo redimo un <Brand>benefizio</Brand>?
+      </>
+    ),
     a: "Con tu membresía activa, abres el cupón en la app y lo muestras en el local mediante un QR, un código de barras o un texto. La hora en vivo confirma que es válido en el momento.",
   },
   {
@@ -25,7 +36,7 @@ const faqs = [
   },
 ];
 
-function Item({ q, a }: { q: string; a: string }) {
+function Item({ q, a }: { q: React.ReactNode; a: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b border-black/10">
@@ -70,8 +81,8 @@ export default function Faq() {
       </div>
 
       <div className="mt-10">
-        {faqs.map((f) => (
-          <Item key={f.q} {...f} />
+        {faqs.map((f, i) => (
+          <Item key={i} {...f} />
         ))}
       </div>
     </section>

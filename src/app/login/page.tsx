@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AuthShell, { Field } from "@/components/auth/AuthShell";
+import Brand from "@/components/Brand";
 
 export const metadata: Metadata = { title: "Iniciar sesión" };
 
@@ -8,7 +9,7 @@ export default function LoginPage() {
   return (
     <AuthShell
       title="Bienvenido de nuevo"
-      subtitle="Ingresa para ver tus benefizios."
+      subtitle={<>Ingresa para ver tus <Brand />.</>}
       footer={
         <>
           ¿No tienes cuenta?{" "}

@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Brand from "@/components/Brand";
 
 const links = [
-  { href: "#beneficios", label: "Benefizios" },
+  { href: "#beneficios", label: <Brand /> },
   { href: "#como-funciona", label: "Cómo funciona" },
   { href: "#referidos", label: "Referidos" },
   { href: "#preguntas", label: "Preguntas" },

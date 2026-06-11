@@ -1,3 +1,5 @@
+import Brand from "@/components/Brand";
+
 const steps = [
   {
     n: "01",
@@ -6,7 +8,11 @@ const steps = [
   },
   {
     n: "02",
-    title: "Explora los benefizios",
+    title: (
+      <>
+        Explora los <Brand />
+      </>
+    ),
     desc: "Con la membresía activa se desbloquean todos los descuentos disponibles cerca de ti.",
   },
   {
