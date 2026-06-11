@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const links = [
-  { href: "#beneficios", label: "Beneficios" },
+  { href: "#beneficios", label: "Benefizios" },
   { href: "#como-funciona", label: "Cómo funciona" },
   { href: "#referidos", label: "Referidos" },
   { href: "#preguntas", label: "Preguntas" },

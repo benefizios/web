@@ -1,7 +1,7 @@
 const pillars = [
   {
     icon: "🛍️",
-    title: "Beneficios de uso cotidiano",
+    title: "Benefizios de uso cotidiano",
     desc: "Nada de promos que nunca usas. Descuentos en lo de todos los días: comer, estacionar, un café, salir.",
   },
   {

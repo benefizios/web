@@ -6,7 +6,7 @@ const steps = [
   },
   {
     n: "02",
-    title: "Explorá los beneficios",
+    title: "Explora los benefizios",
     desc: "Con la membresía activa se desbloquean todos los descuentos disponibles cerca de ti.",
   },
   {

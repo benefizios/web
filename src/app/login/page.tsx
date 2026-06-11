@@ -8,7 +8,7 @@ export default function LoginPage() {
   return (
     <AuthShell
       title="Bienvenido de nuevo"
-      subtitle="Ingresa para ver tus beneficios."
+      subtitle="Ingresa para ver tus benefizios."
       footer={
         <>
           ¿No tienes cuenta?{" "}

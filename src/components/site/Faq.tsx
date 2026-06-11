@@ -5,14 +5,14 @@ import { useState } from "react";
 const faqs = [
   {
     q: "¿Cuánto cuesta la membresía?",
-    a: "Manejamos planes mensuales accesibles. El precio final lo confirmamos al lanzamiento, pero la idea es que un solo beneficio ya cubra el costo del mes.",
+    a: "Manejamos planes mensuales accesibles. El precio final lo confirmamos al lanzamiento, pero la idea es que un solo benefizio ya cubra el costo del mes.",
   },
   {
     q: "¿Los negocios pagan por participar?",
     a: "No. A diferencia de otras plataformas, los comercios no pagan nada: solo ofrecen el descuento. Eso hace que el modelo sea sostenible y que se sumen más locales.",
   },
   {
-    q: "¿Cómo redimo un beneficio?",
+    q: "¿Cómo redimo un benefizio?",
     a: "Con tu membresía activa, abres el cupón en la app y lo muestras en el local mediante un QR, un código de barras o un texto. La hora en vivo confirma que es válido en el momento.",
   },
   {

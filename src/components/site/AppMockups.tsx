@@ -45,7 +45,7 @@ function HomeScreen() {
       </div>
 
       <p className="mt-3 text-[11px] font-semibold text-ink">
-        Beneficios para ti
+        Benefizios para ti
       </p>
       <div className="mt-1.5 flex items-center gap-1.5 rounded-full bg-mist px-3 py-1.5">
         <span className="text-[10px] text-ink/40">🔍</span>

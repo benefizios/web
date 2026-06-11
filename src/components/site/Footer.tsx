@@ -23,7 +23,7 @@ export default function Footer() {
 
           <div className="flex flex-col gap-2 text-sm">
             <a href="#beneficios" className="text-ink/60 hover:text-ink">
-              Beneficios
+              Benefizios
             </a>
             <a href="#como-funciona" className="text-ink/60 hover:text-ink">
               Cómo funciona
