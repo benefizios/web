@@ -1,18 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
+import { joinWaitlist, type AuthState } from "@/app/auth/actions";
 import Brand from "@/components/Brand";
 
 export default function Waitlist() {
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [state, action, pending] = useActionState<AuthState, FormData>(
+    joinWaitlist,
+    undefined,
+  );
 
-  // TODO(supabase): persistir el email en una tabla `waitlist`.
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email) return;
-    setSent(true);
-  }
+  const sent = state?.success === "ok";
 
   return (
     <section className="relative overflow-hidden bg-cream">
@@ -38,10 +37,11 @@ export default function Waitlist() {
           </div>
         ) : (
           <form
-            onSubmit={handleSubmit}
+            action={action}
             className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row"
           >
             <input
+              name="email"
               type="email"
               required
               value={email}
@@ -51,11 +51,16 @@ export default function Waitlist() {
             />
             <button
               type="submit"
-              className="rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
+              disabled={pending}
+              className="rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] disabled:opacity-60"
             >
-              Avísame
+              {pending ? "Enviando…" : "Avísame"}
             </button>
           </form>
+        )}
+
+        {state?.error && (
+          <p className="mt-3 text-xs font-medium text-red-600">{state.error}</p>
         )}
         <p className="mt-3 text-xs text-ink/40">
           Sin spam. Solo te escribimos para el lanzamiento.

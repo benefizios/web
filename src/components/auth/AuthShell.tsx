@@ -47,14 +47,20 @@ export default function AuthShell({
 
 export function Field({
   label,
+  name,
   type = "text",
   placeholder,
   autoComplete,
+  required = true,
+  defaultValue,
 }: {
   label: string;
+  name: string;
   type?: string;
   placeholder?: string;
   autoComplete?: string;
+  required?: boolean;
+  defaultValue?: string;
 }) {
   return (
     <label className="block">
@@ -62,9 +68,12 @@ export function Field({
         {label}
       </span>
       <input
+        name={name}
         type={type}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        required={required}
+        defaultValue={defaultValue}
         className="w-full rounded-xl border border-haze bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand"
       />
     </label>
