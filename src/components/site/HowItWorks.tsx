@@ -1,4 +1,5 @@
 import Brand from "@/components/Brand";
+import Reveal from "@/components/Reveal";
 
 const steps = [
   {
@@ -35,16 +36,16 @@ export default function HowItWorks() {
     >
       <div className="pointer-events-none absolute -right-20 top-0 h-72 w-72 rounded-full bg-brand/20 blur-3xl" />
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="max-w-2xl">
+        <Reveal className="max-w-2xl">
           <p className="text-sm font-semibold text-brand">Cómo funciona</p>
           <h2 className="mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl">
             De registrarte a ahorrar, en cuatro pasos
           </h2>
-        </div>
+        </Reveal>
 
         <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s) => (
-            <div key={s.n}>
+          {steps.map((s, i) => (
+            <Reveal key={s.n} delay={i * 70}>
               <span className="font-display text-4xl font-extrabold text-brand">
                 {s.n}
               </span>
@@ -52,7 +53,7 @@ export default function HowItWorks() {
               <p className="mt-2 text-sm leading-relaxed text-white/60">
                 {s.desc}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -52,7 +52,7 @@ export default function Navbar() {
           </Link>
           <Link
             href="/registro"
-            className="rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
+            className="rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-transform duration-200 ease-snappy hover:scale-[1.03] active:scale-[0.97]"
           >
             Regístrate
           </Link>

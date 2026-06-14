@@ -22,6 +22,9 @@
   /* Animaciones */
   --animate-float: float 7s ease-in-out infinite;
   --animate-float-slow: float 9s ease-in-out infinite;
+
+  /* Easing fuerte (más punch que los built-in) */
+  --ease-snappy: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes float {
@@ -73,4 +76,71 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   opacity: 0.035;
   pointer-events: none;
+}
+
+/* ───────────────────────────────────────────────────────────
+   Animaciones — solo transform/opacity (GPU), easing fuerte.
+   ─────────────────────────────────────────────────────────── */
+
+/* Scroll-reveal: entra al aparecer en viewport (ver components/Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s var(--ease-snappy),
+    transform 0.7s var(--ease-snappy);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Entrada del hero al cargar (CSS puro, sin JS) */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise-in {
+  opacity: 0;
+  animation: rise-in 0.8s var(--ease-snappy) both;
+}
+
+/* Entrada de los teléfonos del hero: escala desde 0.96 (nunca desde 0) */
+@keyframes rise-scale {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise-scale {
+  animation: rise-scale 1s var(--ease-snappy) both;
+}
+
+/* Respeto a quienes prefieren menos movimiento: mostramos sin desplazar. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .rise-in,
+  .rise-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  .animate-float,
+  .animate-float-slow {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

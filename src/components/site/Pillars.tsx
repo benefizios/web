@@ -1,4 +1,5 @@
 import Brand from "@/components/Brand";
+import Reveal from "@/components/Reveal";
 
 const pillars = [
   {
@@ -25,7 +26,7 @@ const pillars = [
 export default function Pillars() {
   return (
     <section id="beneficios" className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-      <div className="mx-auto max-w-2xl text-center">
+      <Reveal className="mx-auto max-w-2xl text-center">
         <p className="text-sm font-semibold text-brand">
           Por qué <Brand />
         </p>
@@ -33,22 +34,23 @@ export default function Pillars() {
           Pensado para que la membresía{" "}
           <span className="text-ink/40">se pague sola</span>
         </h2>
-      </div>
+      </Reveal>
 
       <div className="mt-12 grid gap-5 sm:grid-cols-3">
         {pillars.map((p, i) => (
-          <div
-            key={i}
-            className="group rounded-3xl border border-black/5 bg-cream p-7 transition-shadow hover:shadow-lg"
-          >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-2xl shadow-sm transition-transform group-hover:scale-110">
-              {p.icon}
+          <Reveal key={i} delay={i * 70} className="h-full">
+            <div className="group h-full rounded-3xl border border-black/5 bg-cream p-7 transition-shadow duration-300 hover:shadow-lg">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-2xl shadow-sm transition-transform duration-200 ease-snappy group-hover:scale-110">
+                {p.icon}
+              </div>
+              <h3 className="mt-5 font-display text-lg font-bold text-ink">
+                {p.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink/60">
+                {p.desc}
+              </p>
             </div>
-            <h3 className="mt-5 font-display text-lg font-bold text-ink">
-              {p.title}
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-ink/60">{p.desc}</p>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

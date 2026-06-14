@@ -1,3 +1,5 @@
+import Reveal from "@/components/Reveal";
+
 const features = [
   {
     icon: "🏪",
@@ -34,29 +36,30 @@ const features = [
 export default function Features() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-      <div className="mx-auto max-w-2xl text-center">
-        <p className="text-sm font-semibold text-brand">Lo que nos hace distintos</p>
+      <Reveal className="mx-auto max-w-2xl text-center">
+        <p className="text-sm font-semibold text-brand">
+          Lo que nos hace distintos
+        </p>
         <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
           Con todo lo que necesitas
         </h2>
-      </div>
+      </Reveal>
 
       <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {features.map((f) => (
-          <div
-            key={f.title}
-            className="rounded-2xl border border-black/5 bg-white p-6 transition-colors hover:border-brand/40 hover:bg-cream"
-          >
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-mist text-xl">
-              {f.icon}
+        {features.map((f, i) => (
+          <Reveal key={f.title} delay={(i % 3) * 60} className="h-full">
+            <div className="h-full rounded-2xl border border-black/5 bg-white p-6 transition-colors duration-300 hover:border-brand/40 hover:bg-cream">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-mist text-xl">
+                {f.icon}
+              </div>
+              <h3 className="mt-4 font-display text-base font-bold text-ink">
+                {f.title}
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink/60">
+                {f.desc}
+              </p>
             </div>
-            <h3 className="mt-4 font-display text-base font-bold text-ink">
-              {f.title}
-            </h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-ink/60">
-              {f.desc}
-            </p>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

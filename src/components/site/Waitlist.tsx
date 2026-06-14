@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { joinWaitlist, type AuthState } from "@/app/auth/actions";
 import Brand from "@/components/Brand";
+import Reveal from "@/components/Reveal";
 
 export default function Waitlist() {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export default function Waitlist() {
 
   return (
     <section className="relative overflow-hidden bg-cream">
-      <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 lg:py-24">
+      <Reveal className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 lg:py-24">
         <h2 className="mx-auto max-w-2xl font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
           Sé de los primeros en{" "}
           <span className="relative whitespace-nowrap">
@@ -47,12 +48,12 @@ export default function Waitlist() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="tu@correo.com"
-              className="w-full rounded-full border border-haze bg-white px-5 py-3.5 text-sm text-ink outline-none transition-colors focus:border-brand"
+              className="w-full rounded-full border border-haze bg-white px-5 py-3.5 text-sm text-ink outline-none transition-colors duration-200 focus:border-brand"
             />
             <button
               type="submit"
               disabled={pending}
-              className="rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] disabled:opacity-60"
+              className="rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-white transition-transform duration-200 ease-snappy hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60"
             >
               {pending ? "Enviando…" : "Avísame"}
             </button>
@@ -65,7 +66,7 @@ export default function Waitlist() {
         <p className="mt-3 text-xs text-ink/40">
           Sin spam. Solo te escribimos para el lanzamiento.
         </p>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Brand from "@/components/Brand";
+import Reveal from "@/components/Reveal";
 
 const faqs = [
   {
@@ -58,7 +59,7 @@ function Item({ q, a }: { q: React.ReactNode; a: React.ReactNode }) {
         </span>
       </button>
       <div
-        className={`grid transition-all duration-300 ${
+        className={`grid transition-[grid-template-rows,padding-bottom] duration-300 ease-snappy ${
           open ? "grid-rows-[1fr] pb-5" : "grid-rows-[0fr]"
         }`}
       >
@@ -73,18 +74,18 @@ function Item({ q, a }: { q: React.ReactNode; a: React.ReactNode }) {
 export default function Faq() {
   return (
     <section id="preguntas" className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
-      <div className="text-center">
+      <Reveal className="text-center">
         <p className="text-sm font-semibold text-brand">Preguntas frecuentes</p>
         <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
           Lo que sueles preguntarte
         </h2>
-      </div>
+      </Reveal>
 
-      <div className="mt-10">
+      <Reveal delay={80} className="mt-10">
         {faqs.map((f, i) => (
           <Item key={i} {...f} />
         ))}
-      </div>
+      </Reveal>
     </section>
   );
 }
