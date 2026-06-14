@@ -2,6 +2,7 @@ import Navbar from "@/components/site/Navbar";
 import Hero from "@/components/site/Hero";
 import Pillars from "@/components/site/Pillars";
 import HowItWorks from "@/components/site/HowItWorks";
+import BenefitsLocked from "@/components/site/BenefitsLocked";
 import Referrals from "@/components/site/Referrals";
 import Features from "@/components/site/Features";
 import Faq from "@/components/site/Faq";
@@ -16,6 +17,7 @@ export default function Home() {
         <Hero />
         <Pillars />
         <HowItWorks />
+        <BenefitsLocked />
         <Referrals />
         <Features />
         <Faq />
