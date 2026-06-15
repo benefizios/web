@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { searchNearbyBenefits, type NearbyBenefit } from "./actions";
 import { iconFor, codeTypeLabel } from "@/components/redeem/codeUtils";
@@ -8,6 +8,7 @@ import { iconFor, codeTypeLabel } from "@/components/redeem/codeUtils";
 type Center = { lat: number; lng: number; label: string };
 
 const RADIOS = [5, 10, 25, 50, 100, 200];
+const STORAGE_KEY = "benefizios:nearby";
 
 export default function BenefitsNearby() {
   const [query, setQuery] = useState("");
@@ -18,6 +19,15 @@ export default function BenefitsNearby() {
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
+  // Guarda la ubicación elegida para restaurarla al volver.
+  function persist(c: Center, r: number) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...c, radius: r }));
+    } catch {
+      // localStorage no disponible: no pasa nada.
+    }
+  }
+
   function runSearch(c: Center, r: number) {
     startTransition(async () => {
       const data = await searchNearbyBenefits(c.lat, c.lng, r);
@@ -25,6 +35,25 @@ export default function BenefitsNearby() {
       setSearched(true);
     });
   }
+
+  // Al montar: restaura la última ubicación guardada y vuelve a buscar.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as Center & { radius?: number };
+      if (typeof saved.lat !== "number" || typeof saved.lng !== "number") return;
+      const c = { lat: saved.lat, lng: saved.lng, label: saved.label };
+      const r = saved.radius ?? 50;
+      setCenter(c);
+      setRadius(r);
+      setQuery(saved.label ?? "");
+      runSearch(c, r);
+    } catch {
+      // entrada inválida: la ignoramos.
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function geocode(e: React.FormEvent) {
     e.preventDefault();
@@ -47,6 +76,8 @@ export default function BenefitsNearby() {
         label: data[0].display_name.split(",").slice(0, 3).join(", "),
       };
       setCenter(c);
+      setQuery(c.label);
+      persist(c, radius);
       runSearch(c, radius);
     } catch {
       setError("No pudimos buscar la ubicación. Intenta de nuevo.");
@@ -67,15 +98,23 @@ export default function BenefitsNearby() {
           label: "Tu ubicación actual",
         };
         setCenter(c);
+        setQuery(c.label);
+        persist(c, radius);
         runSearch(c, radius);
       },
-      () => setError("No pudimos obtener tu ubicación. Permite el acceso o busca una dirección."),
+      () =>
+        setError(
+          "No pudimos obtener tu ubicación. Permite el acceso o busca una dirección.",
+        ),
     );
   }
 
   function changeRadius(r: number) {
     setRadius(r);
-    if (center) runSearch(center, r);
+    if (center) {
+      persist(center, r);
+      runSearch(center, r);
+    }
   }
 
   return (
