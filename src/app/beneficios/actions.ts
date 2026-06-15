@@ -51,18 +51,12 @@ export async function searchNearbyBenefits(
   lng: number,
   radiusKm: number,
 ): Promise<NearbyBenefit[]> {
-  // Gating: solo miembros activos.
+  // Cualquier usuario logueado puede explorar (el canje se bloquea aparte).
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return [];
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("membership_status")
-    .eq("id", user.id)
-    .single();
-  if (profile?.membership_status !== "active") return [];
 
   const r = Math.min(Math.max(radiusKm, 1), 500);
   // Caja delimitadora para traer SOLO los locales cercanos (no toda la base).

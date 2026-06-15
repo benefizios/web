@@ -41,7 +41,7 @@ export default async function RedeemPage({
     .select("membership_status")
     .eq("id", user.id)
     .single();
-  if (profile?.membership_status !== "active") redirect("/membresia");
+  const isActive = profile?.membership_status === "active";
 
   const admin = createAdminClient();
   const { data } = await admin
@@ -88,15 +88,37 @@ export default async function RedeemPage({
           )}
         </div>
 
-        {/* Ticket de redención */}
-        <div className="mt-8">
-          <RedeemCode codeType={b.code_type} seed={b.id} />
-        </div>
-
-        <p className="mt-4 text-center text-xs text-ink/45">
-          Muestra este código en el local. La hora en vivo confirma que es válido
-          en este momento.
-        </p>
+        {/* Ticket de redención (solo miembros activos) */}
+        {isActive ? (
+          <>
+            <div className="mt-8">
+              <RedeemCode codeType={b.code_type} seed={b.id} />
+            </div>
+            <p className="mt-4 text-center text-xs text-ink/45">
+              Muestra este código en el local. La hora en vivo confirma que es
+              válido en este momento.
+            </p>
+          </>
+        ) : (
+          <div className="mt-8 rounded-3xl border border-black/5 bg-white p-8 text-center shadow-xl">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-mist text-2xl">
+              🔒
+            </div>
+            <h2 className="mt-5 font-display text-xl font-bold text-ink">
+              Activa tu membresía para usarlo
+            </h2>
+            <p className="mt-2 text-sm text-ink/60">
+              Con tu membresía activa ves el código y lo canjeas en el local.
+              Mientras tanto, puedes seguir explorando todos los beneficios.
+            </p>
+            <Link
+              href="/membresia"
+              className="mt-6 block rounded-xl bg-ink py-3.5 text-sm font-bold text-white transition-transform duration-200 ease-snappy hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Activar membresía
+            </Link>
+          </div>
+        )}
 
         {/* Sucursales */}
         {b.business?.branches && b.business.branches.length > 0 && (

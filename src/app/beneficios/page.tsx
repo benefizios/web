@@ -19,7 +19,7 @@ export default async function BeneficiosPage() {
     .select("membership_status")
     .eq("id", user.id)
     .single();
-  if (profile?.membership_status !== "active") redirect("/membresia");
+  const isActive = profile?.membership_status === "active";
 
   return (
     <main className="min-h-screen bg-cream">
@@ -51,6 +51,22 @@ export default async function BeneficiosPage() {
         <p className="mt-1 text-ink/55">
           Elige una ubicación y la distancia que quieras explorar.
         </p>
+
+        {!isActive && (
+          <div className="mt-6 flex flex-col items-start justify-between gap-3 rounded-2xl border border-brand/40 bg-brand/10 p-5 sm:flex-row sm:items-center">
+            <p className="text-sm font-medium text-ink">
+              🔓 Estás explorando. Activa tu membresía para canjear cualquiera de
+              estos beneficios.
+            </p>
+            <Link
+              href="/membresia"
+              className="shrink-0 rounded-full bg-ink px-5 py-2.5 text-sm font-bold text-white transition-transform duration-200 ease-snappy hover:scale-[1.03] active:scale-[0.97]"
+            >
+              Activar membresía
+            </Link>
+          </div>
+        )}
+
         <div className="mt-8">
           <BenefitsNearby />
         </div>

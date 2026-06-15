@@ -99,6 +99,12 @@ export default async function CuentaPage({
               >
                 Activar membresía
               </Link>
+              <Link
+                href="/beneficios"
+                className="mt-2 block rounded-xl border border-haze bg-white py-3 text-center text-sm font-semibold text-ink transition-colors hover:bg-mist"
+              >
+                Explorar beneficios
+              </Link>
             </div>
           )}
 
