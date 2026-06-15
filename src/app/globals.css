@@ -126,6 +126,30 @@ body {
   animation: rise-scale 1s var(--ease-snappy) both;
 }
 
+/* Código de redención: brillo holográfico (estilo ticket, anti-captura).
+   Una lámina de luz multicolor que se desliza sobre el código. */
+.holo-shine {
+  background: linear-gradient(
+    115deg,
+    transparent 28%,
+    rgba(255, 0, 128, 0.4) 42%,
+    rgba(0, 200, 255, 0.4) 50%,
+    rgba(150, 255, 0, 0.35) 58%,
+    transparent 72%
+  );
+  background-size: 300% 100%;
+  mix-blend-mode: overlay;
+  animation: holo-move 3.5s linear infinite;
+}
+@keyframes holo-move {
+  0% {
+    background-position: 120% 0;
+  }
+  100% {
+    background-position: -120% 0;
+  }
+}
+
 /* Respeto a quienes prefieren menos movimiento: mostramos sin desplazar. */
 @media (prefers-reduced-motion: reduce) {
   .reveal,
@@ -137,7 +161,8 @@ body {
     animation: none !important;
   }
   .animate-float,
-  .animate-float-slow {
+  .animate-float-slow,
+  .holo-shine {
     animation: none !important;
   }
   html {

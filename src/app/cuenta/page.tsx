@@ -76,8 +76,14 @@ export default async function CuentaPage({
               </div>
               <p className="mt-2 text-sm text-ink/60">
                 Ya puedes ver y redimir todos los <Brand /> disponibles cerca de
-                ti. (La vista de beneficios llega pronto.)
+                ti.
               </p>
+              <Link
+                href="/beneficios"
+                className="mt-4 block rounded-xl bg-ink py-3 text-center text-sm font-bold text-white transition-transform duration-200 ease-snappy hover:scale-[1.02] active:scale-[0.98]"
+              >
+                Ver beneficios
+              </Link>
             </div>
           ) : (
             <div className="mt-6 rounded-2xl border border-haze bg-mist/40 p-5">
