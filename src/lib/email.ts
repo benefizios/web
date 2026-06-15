@@ -4,6 +4,54 @@
  */
 type SendArgs = { to: string | string[]; subject: string; html: string };
 
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://benefizios.com";
+
+/**
+ * Envuelve el contenido en el diseño de marca de Benefizios.
+ * Tablas + estilos inline para compatibilidad con clientes de correo.
+ */
+export function brandedEmail({
+  heading,
+  body,
+  ctaText,
+  ctaUrl,
+  footnote,
+}: {
+  heading: string;
+  body: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  footnote?: string;
+}): string {
+  const button =
+    ctaText && ctaUrl
+      ? `<tr><td style="padding:8px 0 4px">
+           <a href="${ctaUrl}" style="display:inline-block;background:#232323;color:#ffffff;text-decoration:none;padding:14px 28px;border-radius:12px;font-weight:bold;font-size:15px">${ctaText}</a>
+         </td></tr>`
+      : "";
+  return `<!doctype html>
+<html lang="es"><body style="margin:0;background:#f2f2f2">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f2f2f2;padding:32px 12px;font-family:Arial,Helvetica,sans-serif">
+  <tr><td align="center">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border-radius:20px;overflow:hidden;border:1px solid #eee">
+      <tr><td style="background:#ffcb03;padding:22px 32px">
+        <img src="${SITE}/logo-benefizios.png" alt="Benefizios" height="24" style="display:block;border:0;height:24px">
+      </td></tr>
+      <tr><td style="padding:32px">
+        <h1 style="margin:0 0 12px;font-size:22px;line-height:1.25;color:#232323">${heading}</h1>
+        <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:#555">${body}</p>
+        <table role="presentation" cellpadding="0" cellspacing="0">${button}</table>
+        ${footnote ? `<p style="margin:24px 0 0;font-size:12px;line-height:1.5;color:#999">${footnote}</p>` : ""}
+      </td></tr>
+    </table>
+    <p style="max-width:480px;margin:16px auto 0;font-size:11px;color:#aaa;text-align:center">
+      Benefizios · Tu decisión inteligente
+    </p>
+  </td></tr>
+</table>
+</body></html>`;
+}
+
 export async function sendEmail({ to, subject, html }: SendArgs): Promise<boolean> {
   const key = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM ?? "no-reply@benefizios.com";
@@ -43,23 +91,14 @@ export async function notifyAdminNewBenefit(args: {
     console.warn("[email] ADMIN_NOTIFY_EMAIL ausente; no se notifica.");
     return false;
   }
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://benefizios.com";
   return sendEmail({
     to,
     subject: `Nuevo beneficio para aprobar: ${args.business}`,
-    html: `
-      <div style="font-family:system-ui,sans-serif;max-width:480px">
-        <h2 style="margin:0 0 8px">Nuevo beneficio cargado</h2>
-        <p style="color:#555;margin:0 0 16px">Un negocio cargó un beneficio que espera tu aprobación.</p>
-        <table style="font-size:14px;color:#222">
-          <tr><td style="padding:2px 12px 2px 0;color:#888">Negocio</td><td><b>${args.business}</b></td></tr>
-          <tr><td style="padding:2px 12px 2px 0;color:#888">Beneficio</td><td>${args.title}</td></tr>
-          <tr><td style="padding:2px 12px 2px 0;color:#888">Sucursales</td><td>${args.branches}</td></tr>
-        </table>
-        <p style="margin:20px 0 0">
-          <a href="${site}/admin" style="background:#232323;color:#fff;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:600">Revisar en el panel</a>
-        </p>
-      </div>
-    `,
+    html: brandedEmail({
+      heading: "Nuevo beneficio cargado",
+      body: `<b>${args.business}</b> cargó el beneficio “${args.title}” con ${args.branches} sucursal(es). Espera tu aprobación.`,
+      ctaText: "Revisar en el panel",
+      ctaUrl: `${SITE}/admin`,
+    }),
   });
 }
