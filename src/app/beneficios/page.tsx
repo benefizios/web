@@ -3,18 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { createAdminClient } from "@/lib/supabase/admin";
-import BenefitsBrowser, { type Benefit } from "./BenefitsBrowser";
+import BenefitsNearby from "./BenefitsNearby";
 
 export const metadata: Metadata = { title: "Beneficios" };
-
-type Raw = {
-  id: string;
-  title: string;
-  code_type: string;
-  category: string | null;
-  business: { name: string; branches?: { zone: string | null }[] } | null;
-};
 
 export default async function BeneficiosPage() {
   const supabase = await createClient();
@@ -29,26 +20,6 @@ export default async function BeneficiosPage() {
     .eq("id", user.id)
     .single();
   if (profile?.membership_status !== "active") redirect("/membresia");
-
-  const admin = createAdminClient();
-  const { data } = await admin
-    .from("benefits")
-    .select(
-      "id, title, code_type, category, business:businesses(name, branches(zone))",
-    )
-    .eq("status", "approved")
-    .order("created_at", { ascending: false });
-
-  const raw = (data ?? []) as unknown as Raw[];
-
-  const benefits: Benefit[] = raw.map((b) => ({
-    id: b.id,
-    title: b.title,
-    code_type: b.code_type,
-    category: b.category,
-    business: b.business?.name ?? "Negocio",
-    zone: b.business?.branches?.[0]?.zone ?? null,
-  }));
 
   return (
     <main className="min-h-screen bg-cream">
@@ -78,11 +49,10 @@ export default async function BeneficiosPage() {
           Beneficios cerca de ti
         </h1>
         <p className="mt-1 text-ink/55">
-          {benefits.length} beneficios disponibles. Elige uno y muéstralo en el
-          local.
+          Elige una ubicación y la distancia que quieras explorar.
         </p>
         <div className="mt-8">
-          <BenefitsBrowser benefits={benefits} />
+          <BenefitsNearby />
         </div>
       </div>
     </main>
