@@ -30,7 +30,7 @@ export default function RegistroForm() {
       <Field
         label="Nombre"
         name="full_name"
-        placeholder="Mauricio Islas"
+        placeholder="Nombre y apellido"
         autoComplete="name"
       />
       <Field
