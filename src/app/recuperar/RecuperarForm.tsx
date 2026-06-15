@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { requestPasswordReset, type AuthState } from "@/app/auth/actions";
 import { Field } from "@/components/auth/AuthShell";
 
@@ -9,6 +9,7 @@ export default function RecuperarForm() {
     requestPasswordReset,
     undefined,
   );
+  const [email, setEmail] = useState("");
 
   if (state?.success) {
     return (
@@ -33,6 +34,8 @@ export default function RecuperarForm() {
         type="email"
         placeholder="tu@correo.com"
         autoComplete="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <button
         type="submit"

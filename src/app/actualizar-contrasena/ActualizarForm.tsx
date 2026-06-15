@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { updatePassword, type AuthState } from "@/app/auth/actions";
 import { Field } from "@/components/auth/AuthShell";
 
@@ -9,6 +9,8 @@ export default function ActualizarForm() {
     updatePassword,
     undefined,
   );
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
 
   return (
     <form action={action} className="space-y-4">
@@ -23,6 +25,8 @@ export default function ActualizarForm() {
         type="password"
         placeholder="Mínimo 8 caracteres"
         autoComplete="new-password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <Field
         label="Repetir contraseña"
@@ -30,6 +34,8 @@ export default function ActualizarForm() {
         type="password"
         placeholder="Repite la contraseña"
         autoComplete="new-password"
+        value={confirm}
+        onChange={(e) => setConfirm(e.target.value)}
       />
       <button
         type="submit"

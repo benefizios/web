@@ -53,6 +53,8 @@ export function Field({
   autoComplete,
   required = true,
   defaultValue,
+  value,
+  onChange,
 }: {
   label: string;
   name: string;
@@ -61,6 +63,8 @@ export function Field({
   autoComplete?: string;
   required?: boolean;
   defaultValue?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
     <label className="block">
@@ -73,7 +77,9 @@ export function Field({
         placeholder={placeholder}
         autoComplete={autoComplete}
         required={required}
-        defaultValue={defaultValue}
+        value={value}
+        onChange={onChange}
+        defaultValue={value === undefined ? defaultValue : undefined}
         className="w-full rounded-xl border border-haze bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand"
       />
     </label>

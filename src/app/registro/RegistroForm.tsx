@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { signUp, type AuthState } from "@/app/auth/actions";
 import { Field } from "@/components/auth/AuthShell";
 
@@ -9,6 +9,9 @@ export default function RegistroForm() {
     signUp,
     undefined,
   );
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   if (state?.success) {
     return (
@@ -32,6 +35,8 @@ export default function RegistroForm() {
         name="full_name"
         placeholder="Nombre y apellido"
         autoComplete="name"
+        value={fullName}
+        onChange={(e) => setFullName(e.target.value)}
       />
       <Field
         label="Correo"
@@ -39,6 +44,8 @@ export default function RegistroForm() {
         type="email"
         placeholder="tu@correo.com"
         autoComplete="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <Field
         label="Contraseña"
@@ -46,6 +53,8 @@ export default function RegistroForm() {
         type="password"
         placeholder="Mínimo 8 caracteres"
         autoComplete="new-password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <button
         type="submit"

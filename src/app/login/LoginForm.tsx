@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import Link from "next/link";
 import { signIn, type AuthState } from "@/app/auth/actions";
 import { Field } from "@/components/auth/AuthShell";
@@ -10,6 +10,8 @@ export default function LoginForm() {
     signIn,
     undefined,
   );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <form action={action} className="space-y-4">
@@ -24,6 +26,8 @@ export default function LoginForm() {
         type="email"
         placeholder="tu@correo.com"
         autoComplete="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <Field
         label="Contraseña"
@@ -31,6 +35,8 @@ export default function LoginForm() {
         type="password"
         placeholder="••••••••"
         autoComplete="current-password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <button
         type="submit"
