@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { signUp, type AuthState } from "@/app/auth/actions";
 import { Field } from "@/components/auth/AuthShell";
+import Turnstile from "@/components/auth/Turnstile";
 
 export default function RegistroForm() {
   const [state, action, pending] = useActionState<AuthState, FormData>(
@@ -56,6 +57,7 @@ export default function RegistroForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      <Turnstile />
       <button
         type="submit"
         disabled={pending}

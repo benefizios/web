@@ -20,6 +20,8 @@ function traducirError(msg: string): string {
     return "Todavía no confirmaste tu correo. Revisa tu bandeja de entrada.";
   if (m.includes("already registered") || m.includes("already been registered"))
     return "Ya existe una cuenta con ese correo.";
+  if (m.includes("captcha"))
+    return "No pudimos verificar que no eres un bot. Recarga la página e inténtalo de nuevo.";
   if (m.includes("rate limit") || m.includes("too many"))
     return "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.";
   if (m.includes("password"))
@@ -35,8 +37,14 @@ export async function signIn(
   const password = String(formData.get("password") ?? "");
   if (!email || !password) return { error: "Completa el correo y la contraseña." };
 
+  const captchaToken =
+    String(formData.get("cf-turnstile-response") ?? "") || undefined;
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+    options: { captchaToken },
+  });
   if (error) return { error: traducirError(error.message) };
 
   revalidatePath("/", "layout");
@@ -71,6 +79,8 @@ export async function signUp(
     };
   }
 
+  const captchaToken =
+    String(formData.get("cf-turnstile-response") ?? "") || undefined;
   const supabase = await createClient();
   const { error } = await supabase.auth.signUp({
     email,
@@ -78,6 +88,7 @@ export async function signUp(
     options: {
       data: { full_name: fullName },
       emailRedirectTo: `${siteUrl()}/auth/confirm?next=/cuenta`,
+      captchaToken,
     },
   });
   if (error) return { error: traducirError(error.message) };
@@ -102,9 +113,12 @@ export async function requestPasswordReset(
   const email = String(formData.get("email") ?? "").trim();
   if (!email) return { error: "Ingresa tu correo." };
 
+  const captchaToken =
+    String(formData.get("cf-turnstile-response") ?? "") || undefined;
   const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${siteUrl()}/auth/confirm?next=/actualizar-contrasena`,
+    captchaToken,
   });
   if (error) return { error: traducirError(error.message) };
 

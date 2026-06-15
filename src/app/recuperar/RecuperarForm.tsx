@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { requestPasswordReset, type AuthState } from "@/app/auth/actions";
 import { Field } from "@/components/auth/AuthShell";
+import Turnstile from "@/components/auth/Turnstile";
 
 export default function RecuperarForm() {
   const [state, action, pending] = useActionState<AuthState, FormData>(
@@ -37,6 +38,7 @@ export default function RecuperarForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
+      <Turnstile />
       <button
         type="submit"
         disabled={pending}
