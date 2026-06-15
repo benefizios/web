@@ -3,7 +3,14 @@
 import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { searchNearbyBenefits, type NearbyBenefit } from "./actions";
-import { iconFor, codeTypeLabel } from "@/components/redeem/codeUtils";
+import {
+  iconFor,
+  categoryLabel,
+  codeTypeLabel,
+  categoryMeta,
+  GENERIC_LOGO,
+} from "@/components/redeem/codeUtils";
+import FavoriteButton from "@/components/FavoriteButton";
 
 type Center = { lat: number; lng: number; label: string };
 
@@ -15,16 +22,18 @@ export default function BenefitsNearby() {
   const [center, setCenter] = useState<Center | null>(null);
   const [radius, setRadius] = useState(50);
   const [results, setResults] = useState<NearbyBenefit[]>([]);
+  const [favIds, setFavIds] = useState<Set<string>>(new Set());
+  const [cat, setCat] = useState<string | null>(null);
+  const [onlyFav, setOnlyFav] = useState(false);
   const [searched, setSearched] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
-  // Guarda la ubicación elegida para restaurarla al volver.
   function persist(c: Center, r: number) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...c, radius: r }));
     } catch {
-      // localStorage no disponible: no pasa nada.
+      // sin localStorage: no pasa nada
     }
   }
 
@@ -32,11 +41,12 @@ export default function BenefitsNearby() {
     startTransition(async () => {
       const data = await searchNearbyBenefits(c.lat, c.lng, r);
       setResults(data);
+      setFavIds(new Set(data.filter((d) => d.favorite).map((d) => d.id)));
       setSearched(true);
     });
   }
 
-  // Al montar: restaura la última ubicación guardada y vuelve a buscar.
+  // Restaura la última ubicación guardada al montar.
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -50,7 +60,7 @@ export default function BenefitsNearby() {
       setQuery(saved.label ?? "");
       runSearch(c, r);
     } catch {
-      // entrada inválida: la ignoramos.
+      // entrada inválida
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -117,6 +127,23 @@ export default function BenefitsNearby() {
     }
   }
 
+  function handleToggleFav(id: string, next: boolean) {
+    setFavIds((prev) => {
+      const s = new Set(prev);
+      if (next) s.add(id);
+      else s.delete(id);
+      return s;
+    });
+  }
+
+  const cats = Object.keys(categoryMeta).filter((slug) =>
+    results.some((r) => r.category === slug),
+  );
+  const visible = results.filter(
+    (r) =>
+      (cat === null || r.category === cat) && (!onlyFav || favIds.has(r.id)),
+  );
+
   return (
     <div>
       {/* Controles de ubicación */}
@@ -170,8 +197,50 @@ export default function BenefitsNearby() {
         {error && <p className="mt-3 text-xs font-medium text-red-600">{error}</p>}
       </div>
 
+      {/* Filtros por categoría + favoritos */}
+      {results.length > 0 && (
+        <div className="mt-6 flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setCat(null)}
+            className={`rounded-full px-3 py-1.5 text-sm font-semibold transition-colors ${
+              cat === null
+                ? "bg-ink text-white"
+                : "border border-haze bg-white text-ink/65 hover:bg-mist"
+            }`}
+          >
+            Todas
+          </button>
+          {cats.map((slug) => (
+            <button
+              key={slug}
+              type="button"
+              onClick={() => setCat(slug)}
+              className={`rounded-full px-3 py-1.5 text-sm font-semibold transition-colors ${
+                cat === slug
+                  ? "bg-ink text-white"
+                  : "border border-haze bg-white text-ink/65 hover:bg-mist"
+              }`}
+            >
+              {categoryMeta[slug].icon} {categoryMeta[slug].label}
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => setOnlyFav((v) => !v)}
+            className={`ml-auto rounded-full px-3 py-1.5 text-sm font-semibold transition-colors ${
+              onlyFav
+                ? "bg-brand text-ink"
+                : "border border-haze bg-white text-ink/65 hover:bg-mist"
+            }`}
+          >
+            {onlyFav ? "❤️" : "🤍"} Favoritos
+          </button>
+        </div>
+      )}
+
       {/* Resultados */}
-      <div className="mt-6">
+      <div className="mt-5">
         {!center ? (
           <p className="py-10 text-center text-sm text-ink/50">
             Elige una ubicación o usa la tuya para ver los beneficios cerca.
@@ -183,34 +252,55 @@ export default function BenefitsNearby() {
             No hay beneficios dentro de {radius} km. Prueba ampliar la distancia u
             otra ubicación.
           </p>
+        ) : visible.length === 0 ? (
+          <p className="py-10 text-center text-sm text-ink/50">
+            {onlyFav
+              ? "Todavía no guardaste favoritos en esta zona."
+              : "No hay beneficios en esa categoría aquí."}
+          </p>
         ) : (
           <>
             <p className="mb-4 text-sm text-ink/55">
-              {results.length} beneficio{results.length === 1 ? "" : "s"} cerca.
+              {visible.length} beneficio{visible.length === 1 ? "" : "s"}.
             </p>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {results.map((b) => (
-                <Link
+              {visible.map((b) => (
+                <div
                   key={b.id}
-                  href={`/beneficios/${b.id}`}
-                  className="group rounded-2xl border border-black/5 bg-white p-5 transition-all duration-200 ease-snappy hover:-translate-y-0.5 hover:shadow-lg"
+                  className="group relative rounded-2xl border border-black/5 bg-white p-5 transition-all duration-200 ease-snappy hover:-translate-y-0.5 hover:shadow-lg"
                 >
                   <div className="flex items-start justify-between">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-mist text-xl">
-                      {iconFor(b.category)}
-                    </span>
-                    <span className="rounded-full bg-brand/15 px-2.5 py-0.5 text-xs font-semibold text-ink/70">
-                      ~{b.distanceKm} km
-                    </span>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={GENERIC_LOGO}
+                      alt=""
+                      className="h-6 w-auto max-w-[55%] object-contain object-left"
+                    />
+                    <FavoriteButton
+                      benefitId={b.id}
+                      favorite={favIds.has(b.id)}
+                      onToggle={handleToggleFav}
+                      className="relative z-10"
+                    />
                   </div>
                   <p className="mt-4 font-display text-base font-bold text-ink">
                     {b.business}
                   </p>
                   <p className="mt-0.5 text-sm text-ink/65">{b.title}</p>
-                  <p className="mt-3 text-xs font-medium text-brand">
-                    Ver código · {codeTypeLabel[b.code_type] ?? b.code_type} →
-                  </p>
-                </Link>
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-mist px-2.5 py-0.5 text-xs font-semibold text-ink/70">
+                      {iconFor(b.category)} {categoryLabel(b.category)}
+                    </span>
+                    <span className="rounded-full bg-brand/15 px-2.5 py-0.5 text-xs font-semibold text-ink/70">
+                      ~{b.distanceKm} km
+                    </span>
+                  </div>
+                  <Link
+                    href={`/beneficios/${b.id}`}
+                    aria-label={b.business}
+                    className="absolute inset-0 rounded-2xl"
+                  />
+                </div>
               ))}
             </div>
           </>

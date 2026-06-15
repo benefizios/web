@@ -11,6 +11,7 @@ export type NearbyBenefit = {
   code_type: string;
   distanceKm: number;
   address: string | null;
+  favorite: boolean;
 };
 
 function haversineKm(
@@ -65,6 +66,14 @@ export async function searchNearbyBenefits(
   const dLng = r / (111 * Math.abs(cosLat));
 
   const admin = createAdminClient();
+
+  // Favoritos del usuario (para marcar cada beneficio).
+  const { data: favs } = await admin
+    .from("favorites")
+    .select("benefit_id")
+    .eq("user_id", user.id);
+  const favSet = new Set((favs ?? []).map((f) => f.benefit_id as string));
+
   const { data } = await admin
     .from("branches")
     .select(
@@ -95,10 +104,59 @@ export async function searchNearbyBenefits(
           code_type: b.code_type,
           distanceKm: Math.round(dist * 10) / 10,
           address: br.address,
+          favorite: favSet.has(b.id),
         });
       }
     }
   }
 
   return [...best.values()].sort((a, b) => a.distanceKm - b.distanceKm);
+}
+
+/** Marca/desmarca un beneficio como favorito. Devuelve el nuevo estado. */
+export async function toggleFavorite(benefitId: string): Promise<boolean> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return false;
+
+  const admin = createAdminClient();
+  const { data: existing } = await admin
+    .from("favorites")
+    .select("benefit_id")
+    .eq("user_id", user.id)
+    .eq("benefit_id", benefitId)
+    .maybeSingle();
+
+  if (existing) {
+    await admin
+      .from("favorites")
+      .delete()
+      .eq("user_id", user.id)
+      .eq("benefit_id", benefitId);
+    return false;
+  }
+
+  await admin
+    .from("favorites")
+    .insert({ user_id: user.id, benefit_id: benefitId });
+  return true;
+}
+
+/** ¿El beneficio está en favoritos del usuario actual? */
+export async function isFavorite(benefitId: string): Promise<boolean> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return false;
+  const admin = createAdminClient();
+  const { data } = await admin
+    .from("favorites")
+    .select("benefit_id")
+    .eq("user_id", user.id)
+    .eq("benefit_id", benefitId)
+    .maybeSingle();
+  return !!data;
 }

@@ -4,8 +4,10 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { isFavorite } from "../actions";
 import RedeemCode from "@/components/redeem/RedeemCode";
-import { iconFor } from "@/components/redeem/codeUtils";
+import FavoriteButton from "@/components/FavoriteButton";
+import { iconFor, categoryLabel, GENERIC_LOGO } from "@/components/redeem/codeUtils";
 
 export const metadata: Metadata = { title: "Tu beneficio" };
 
@@ -55,6 +57,8 @@ export default async function RedeemPage({
   const b = data as unknown as Detail | null;
   if (!b || b.status !== "approved") notFound();
 
+  const fav = await isFavorite(b.id);
+
   return (
     <main className="min-h-screen bg-cream">
       <header className="border-b border-black/5 bg-white">
@@ -76,9 +80,14 @@ export default async function RedeemPage({
       <div className="mx-auto max-w-lg px-5 py-8">
         {/* Encabezado del beneficio */}
         <div className="text-center">
-          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand text-2xl shadow-sm">
-            {iconFor(b.category)}
-          </span>
+          <div className="mx-auto inline-flex items-center justify-center rounded-2xl border border-black/5 bg-white px-6 py-4 shadow-sm">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={GENERIC_LOGO}
+              alt={b.business?.name ?? "Logo"}
+              className="h-7 w-auto object-contain"
+            />
+          </div>
           <h1 className="mt-4 font-display text-2xl font-bold tracking-tight text-ink">
             {b.business?.name}
           </h1>
@@ -86,6 +95,12 @@ export default async function RedeemPage({
           {b.description && (
             <p className="mt-1 text-sm text-ink/55">{b.description}</p>
           )}
+          <div className="mt-4 flex items-center justify-center gap-2">
+            <span className="rounded-full bg-mist px-3 py-1 text-xs font-semibold text-ink/70">
+              {iconFor(b.category)} {categoryLabel(b.category)}
+            </span>
+            <FavoriteButton benefitId={b.id} favorite={fav} />
+          </div>
         </div>
 
         {/* Ticket de redención (solo miembros activos) */}

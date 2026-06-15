@@ -13,23 +13,27 @@ export function seededRandom(seed: string): () => number {
   };
 }
 
-export const categoryIcon: Record<string, string> = {
-  café: "☕",
-  restaurante: "🍽️",
-  gimnasio: "🏋️",
-  cine: "🎬",
-  spa: "💆",
-  postres: "🍦",
-  tienda: "🛍️",
-  moda: "👗",
-  salud: "⚕️",
-  estacionamiento: "🅿️",
-  belleza: "💈",
-  servicios: "🐾",
+/** Logo genérico (placeholder) que se muestra arriba de cada beneficio. */
+export const GENERIC_LOGO = "/logos/dummy-logo-5b.png";
+
+/** Categorías canónicas: etiqueta + ícono. */
+export const categoryMeta: Record<string, { label: string; icon: string }> = {
+  restaurantes: { label: "Restaurantes", icon: "🍽️" },
+  cafe: { label: "Café y postres", icon: "☕" },
+  bienestar: { label: "Belleza y bienestar", icon: "💆" },
+  entretenimiento: { label: "Entretenimiento", icon: "🎬" },
+  salud: { label: "Salud y farmacia", icon: "⚕️" },
+  servicios: { label: "Servicios", icon: "🛠️" },
+  moda: { label: "Moda", icon: "👗" },
+  mascotas: { label: "Mascotas", icon: "🐾" },
+  supermercado: { label: "Supermercado", icon: "🛒" },
 };
 
 export const iconFor = (c?: string | null): string =>
-  (c && categoryIcon[c]) || "🎁";
+  (c && categoryMeta[c]?.icon) || "🎁";
+
+export const categoryLabel = (c?: string | null): string =>
+  (c && categoryMeta[c]?.label) || "Otros";
 
 export const codeTypeLabel: Record<string, string> = {
   qr: "Código QR",
