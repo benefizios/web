@@ -35,6 +35,9 @@ export default function Footer() {
             <a href="#preguntas" className="text-ink/60 hover:text-ink">
               Preguntas
             </a>
+            <Link href="/negocios" className="font-semibold text-ink/70 hover:text-ink">
+              Para negocios
+            </Link>
           </div>
 
           <div className="flex flex-col gap-3">
