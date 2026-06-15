@@ -48,13 +48,28 @@ export async function signUp(
   formData: FormData,
 ): Promise<AuthState> {
   const fullName = String(formData.get("full_name") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim();
+  const email = String(formData.get("email") ?? "")
+    .trim()
+    .toLowerCase();
   const password = String(formData.get("password") ?? "");
 
   if (!fullName || !email || !password)
     return { error: "Completa todos los campos." };
   if (password.length < 8)
     return { error: "La contraseña debe tener al menos 8 caracteres." };
+
+  // ¿El correo ya está registrado? (mensaje claro en vez del genérico)
+  const admin = createAdminClient();
+  const { data: existing } = await admin
+    .from("profiles")
+    .select("id")
+    .eq("email", email)
+    .maybeSingle();
+  if (existing) {
+    return {
+      error: "Ya existe una cuenta con ese correo. Inicia sesión.",
+    };
+  }
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signUp({

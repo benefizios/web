@@ -7,14 +7,25 @@ const inputClass =
   "w-full rounded-xl border border-haze bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand";
 const labelClass = "mb-1.5 block text-sm font-medium text-ink/80";
 
-let branchSeq = 1;
+type Branch = { name: string; address: string };
 
 export default function NegociosForm() {
   const [state, action, pending] = useActionState<NegocioState, FormData>(
     submitBusiness,
     undefined,
   );
-  const [branches, setBranches] = useState<number[]>([0]);
+
+  // Campos controlados: al mostrar un error no se pierde lo escrito.
+  const [name, setName] = useState("");
+  const [website, setWebsite] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [codeType, setCodeType] = useState("qr");
+  const [branches, setBranches] = useState<Branch[]>([{ name: "", address: "" }]);
+
+  const setBranch = (i: number, patch: Partial<Branch>) =>
+    setBranches((b) => b.map((br, idx) => (idx === i ? { ...br, ...patch } : br)));
 
   if (state?.success) {
     return (
@@ -46,12 +57,25 @@ export default function NegociosForm() {
         </legend>
         <label className="block">
           <span className={labelClass}>Nombre del negocio</span>
-          <input name="name" required placeholder="Cafético" className={inputClass} />
+          <input
+            name="name"
+            required
+            placeholder="Cafético"
+            className={inputClass}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </label>
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block">
             <span className={labelClass}>Sitio web (opcional)</span>
-            <input name="website" placeholder="https://…" className={inputClass} />
+            <input
+              name="website"
+              placeholder="https://…"
+              className={inputClass}
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
           </label>
           <label className="block">
             <span className={labelClass}>Correo de contacto</span>
@@ -61,6 +85,8 @@ export default function NegociosForm() {
               required
               placeholder="hola@tunegocio.com"
               className={inputClass}
+              value={contactEmail}
+              onChange={(e) => setContactEmail(e.target.value)}
             />
           </label>
         </div>
@@ -78,6 +104,8 @@ export default function NegociosForm() {
             required
             placeholder="2x1 en cafés de lunes a viernes"
             className={inputClass}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </label>
         <label className="block">
@@ -87,11 +115,18 @@ export default function NegociosForm() {
             rows={2}
             placeholder="Condiciones, vigencia, restricciones…"
             className={inputClass}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </label>
         <label className="block">
           <span className={labelClass}>¿Cómo se redime?</span>
-          <select name="code_type" className={inputClass} defaultValue="qr">
+          <select
+            name="code_type"
+            className={inputClass}
+            value={codeType}
+            onChange={(e) => setCodeType(e.target.value)}
+          >
             <option value="qr">Código QR</option>
             <option value="barcode">Código de barras</option>
             <option value="text">Texto (mostrar en el local)</option>
@@ -108,22 +143,28 @@ export default function NegociosForm() {
           Dónde se puede usar el beneficio. Podrás cargar las coordenadas exactas
           después.
         </p>
-        {branches.map((id, i) => (
-          <div key={id} className="grid gap-3 sm:grid-cols-[1fr_1.4fr_auto]">
+        {branches.map((br, i) => (
+          <div key={i} className="grid gap-3 sm:grid-cols-[1fr_1.4fr_auto]">
             <input
               name="branch_name"
               placeholder={`Sucursal ${i + 1}`}
               className={inputClass}
+              value={br.name}
+              onChange={(e) => setBranch(i, { name: e.target.value })}
             />
             <input
               name="branch_address"
               placeholder="Dirección"
               className={inputClass}
+              value={br.address}
+              onChange={(e) => setBranch(i, { address: e.target.value })}
             />
             {branches.length > 1 && (
               <button
                 type="button"
-                onClick={() => setBranches((b) => b.filter((x) => x !== id))}
+                onClick={() =>
+                  setBranches((b) => b.filter((_, idx) => idx !== i))
+                }
                 className="rounded-xl border border-haze px-3 text-sm text-ink/50 transition-colors hover:bg-mist"
                 aria-label="Quitar sucursal"
               >
@@ -134,7 +175,7 @@ export default function NegociosForm() {
         ))}
         <button
           type="button"
-          onClick={() => setBranches((b) => [...b, branchSeq++])}
+          onClick={() => setBranches((b) => [...b, { name: "", address: "" }])}
           className="text-sm font-semibold text-ink/70 transition-colors hover:text-ink"
         >
           + Agregar otra sucursal
