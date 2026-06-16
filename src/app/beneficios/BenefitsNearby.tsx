@@ -186,7 +186,7 @@ export default function BenefitsNearby() {
               value={query}
               onChange={(e) => onQueryChange(e.target.value)}
               onBlur={() => setTimeout(() => setSuggestions([]), 150)}
-              placeholder="Ciudad, colonia o dirección…"
+              placeholder="Código postal, ciudad, colonia o dirección…"
               autoComplete="off"
               className="w-full rounded-full border border-haze bg-white px-5 py-3 text-sm text-ink outline-none transition-colors focus:border-brand"
             />
