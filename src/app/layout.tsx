@@ -39,6 +39,12 @@ export const metadata: Metadata = {
     locale: "es_MX",
     siteName: "Benefizios",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Benefizios — Tu decisión inteligente",
+    description:
+      "La membresía que te da descuentos de uso cotidiano. Sin compras online, fáciles de redimir.",
+  },
 };
 
 export default function RootLayout({
