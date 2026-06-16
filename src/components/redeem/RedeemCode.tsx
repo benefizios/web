@@ -36,8 +36,8 @@ export default function RedeemCode({
 
       {/* Perforación del ticket + reloj en vivo */}
       <div className="relative border-t border-dashed border-black/15 bg-mist/30 px-8 py-5">
-        <div className="absolute -left-3 -top-3 h-6 w-6 rounded-full bg-cream" />
-        <div className="absolute -right-3 -top-3 h-6 w-6 rounded-full bg-cream" />
+        <div className="absolute -left-3 -top-3 h-6 w-6 rounded-full bg-[#fdedb6]" />
+        <div className="absolute -right-3 -top-3 h-6 w-6 rounded-full bg-[#fdedb6]" />
         <LiveClock />
       </div>
     </div>

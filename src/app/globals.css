@@ -62,10 +62,10 @@ body {
 /* Glow radial amarillo de marca (hero / secciones) */
 .brand-glow {
   background: radial-gradient(
-    55% 55% at 50% 35%,
-    rgba(255, 203, 3, 0.6) 0%,
-    rgba(249, 234, 10, 0.22) 38%,
-    rgba(255, 255, 255, 0) 72%
+    78% 72% at 50% 20%,
+    rgba(255, 203, 3, 0.72) 0%,
+    rgba(255, 221, 85, 0.36) 44%,
+    rgba(255, 248, 220, 0) 84%
   );
 }
 

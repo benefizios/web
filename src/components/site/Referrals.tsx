@@ -11,7 +11,7 @@ export default function Referrals() {
   return (
     <section id="referidos" className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
       <Reveal>
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand to-brand-bright px-6 py-12 sm:px-12 lg:px-16 lg:py-16">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand via-[#ffe27a] to-[#ffe693] px-6 py-12 sm:px-12 lg:px-16 lg:py-16">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div>
               <p className="text-sm font-bold text-ink/60">Plan de referidos</p>

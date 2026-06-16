@@ -177,15 +177,18 @@ export default function BenefitsNearby() {
     <div>
       {/* Controles de ubicación */}
       <div className="rounded-2xl border border-black/5 bg-white p-4 sm:p-5">
-        <form onSubmit={geocode} className="flex flex-col gap-3 sm:flex-row">
-          <div className="relative w-full">
+        <form
+          onSubmit={geocode}
+          className="flex flex-col gap-3 sm:flex-row sm:items-stretch"
+        >
+          <div className="relative flex-1">
             <input
               value={query}
               onChange={(e) => onQueryChange(e.target.value)}
               onBlur={() => setTimeout(() => setSuggestions([]), 150)}
               placeholder="Ciudad, colonia o dirección…"
               autoComplete="off"
-              className="w-full rounded-xl border border-haze bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand"
+              className="w-full rounded-full border border-haze bg-white px-5 py-3 text-sm text-ink outline-none transition-colors focus:border-brand"
             />
             {suggestions.length > 0 && (
               <ul className="absolute inset-x-0 top-full z-20 mt-1 max-h-72 overflow-auto rounded-xl border border-haze bg-white py-1 shadow-xl">
@@ -205,14 +208,14 @@ export default function BenefitsNearby() {
           </div>
           <button
             type="submit"
-            className="rounded-xl bg-ink px-5 py-3 text-sm font-bold text-white transition-transform duration-200 ease-snappy active:scale-[0.97]"
+            className="shrink-0 whitespace-nowrap rounded-full bg-ink px-8 py-3 text-sm font-bold text-white transition-transform duration-200 ease-snappy hover:scale-[1.02] active:scale-[0.97]"
           >
             Buscar
           </button>
           <button
             type="button"
             onClick={useMyLocation}
-            className="rounded-xl border border-haze px-4 py-3 text-sm font-semibold text-ink transition-colors hover:bg-mist"
+            className="shrink-0 whitespace-nowrap rounded-full border border-haze bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-mist"
           >
             📍 Mi ubicación
           </button>
@@ -259,6 +262,17 @@ export default function BenefitsNearby() {
           >
             Todas
           </button>
+          <button
+            type="button"
+            onClick={() => setOnlyFav((v) => !v)}
+            className={`rounded-full px-3 py-1.5 text-sm font-semibold transition-colors ${
+              onlyFav
+                ? "bg-brand text-ink"
+                : "border border-haze bg-white text-ink/65 hover:bg-mist"
+            }`}
+          >
+            {onlyFav ? "❤️" : "🤍"} Favoritos
+          </button>
           {cats.map((slug) => (
             <button
               key={slug}
@@ -273,17 +287,6 @@ export default function BenefitsNearby() {
               {categoryMeta[slug].icon} {categoryMeta[slug].label}
             </button>
           ))}
-          <button
-            type="button"
-            onClick={() => setOnlyFav((v) => !v)}
-            className={`ml-auto rounded-full px-3 py-1.5 text-sm font-semibold transition-colors ${
-              onlyFav
-                ? "bg-brand text-ink"
-                : "border border-haze bg-white text-ink/65 hover:bg-mist"
-            }`}
-          >
-            {onlyFav ? "❤️" : "🤍"} Favoritos
-          </button>
         </div>
       )}
 

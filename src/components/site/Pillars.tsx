@@ -39,7 +39,7 @@ export default function Pillars() {
       <div className="mt-12 grid gap-5 sm:grid-cols-3">
         {pillars.map((p, i) => (
           <Reveal key={i} delay={i * 70} className="h-full">
-            <div className="group h-full rounded-3xl border border-black/5 bg-cream p-7 transition-shadow duration-300 hover:shadow-lg">
+            <div className="group h-full rounded-3xl border border-black/5 bg-[#fff3cf] p-7 transition-shadow duration-300 hover:shadow-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-2xl shadow-sm transition-transform duration-200 ease-snappy group-hover:scale-110">
                 {p.icon}
               </div>

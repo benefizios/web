@@ -32,21 +32,19 @@ export default async function CuentaPage({
   const { activada } = await searchParams;
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 py-12">
-      <div className="pointer-events-none absolute inset-x-0 -top-40 h-[480px]">
-        <div className="brand-glow absolute inset-0" />
-      </div>
-
-      <div className="relative w-full max-w-md">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[linear-gradient(90deg,#ffe693_0%,#fff3cf_100%)] px-5 py-12">
+      <div className="w-full max-w-md">
         <div className="mb-8 flex justify-center">
-          <Image
-            src="/logo-benefizios.png"
-            alt="Benefizios"
-            width={160}
-            height={45}
-            className="h-8 w-auto"
-            unoptimized
-          />
+          <Link href="/beneficios" aria-label="Explorar beneficios">
+            <Image
+              src="/logo-benefizios.png"
+              alt="Benefizios"
+              width={160}
+              height={45}
+              className="h-8 w-auto"
+              unoptimized
+            />
+          </Link>
         </div>
 
         <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-xl">
@@ -65,7 +63,7 @@ export default async function CuentaPage({
 
           {/* Estado de membresía */}
           {isActive ? (
-            <div className="mt-6 rounded-2xl border border-brand/40 bg-cream p-5">
+            <div className="mt-6 rounded-2xl border border-brand/40 bg-[#fff3cf] p-5">
               <div className="flex items-center gap-2">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-xs">
                   ✓

@@ -15,7 +15,7 @@ export default function Waitlist() {
   const sent = state?.success === "ok";
 
   return (
-    <section className="relative overflow-hidden bg-cream">
+    <section className="relative overflow-hidden bg-[linear-gradient(90deg,#ffe693_0%,#fff3cf_100%)]">
       <Reveal className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 lg:py-24">
         <h2 className="mx-auto max-w-2xl font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl lg:text-5xl">
           Sé de los primeros en{" "}

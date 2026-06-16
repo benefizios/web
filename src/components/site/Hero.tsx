@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden">
       {/* glow de marca */}
-      <div className="pointer-events-none absolute inset-x-0 -top-32 h-[640px]">
+      <div className="pointer-events-none absolute inset-x-0 -top-40 h-[940px]">
         <div className="brand-glow absolute inset-0" />
         <div className="noise" />
       </div>
