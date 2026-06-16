@@ -6,10 +6,11 @@ import Link from "next/link";
 import Brand from "@/components/Brand";
 
 const links = [
-  { href: "#beneficios", label: <Brand /> },
-  { href: "#como-funciona", label: "Cómo funciona" },
-  { href: "#referidos", label: "Referidos" },
-  { href: "#preguntas", label: "Preguntas" },
+  { href: "/#beneficios", label: <Brand /> },
+  { href: "/#como-funciona", label: "Cómo funciona" },
+  { href: "/#referidos", label: "Referidos" },
+  { href: "/#preguntas", label: "Preguntas" },
+  { href: "/negocios", label: "Negocios" },
 ];
 
 export default function Navbar() {
