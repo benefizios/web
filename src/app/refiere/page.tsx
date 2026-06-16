@@ -64,7 +64,7 @@ export default async function RefierePage() {
                 className="h-44 w-44 rounded-2xl border border-black/5"
               />
               <p className="mt-4 text-sm text-ink/55">
-                Escanea el QR o comparte tu enlace:
+                Muestra el QR o comparte tu enlace:
               </p>
             </div>
 

@@ -24,11 +24,7 @@ export default async function MembresiaPage() {
   if (profile?.membership_status === "active") redirect("/cuenta");
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 py-12">
-      <div className="pointer-events-none absolute inset-x-0 -top-40 h-[480px]">
-        <div className="brand-glow absolute inset-0" />
-      </div>
-
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[linear-gradient(90deg,#ffe693_0%,#fff3cf_100%)] px-5 py-12">
       <div className="relative w-full max-w-md">
         <Link href="/cuenta" className="mb-8 flex justify-center">
           <Image
