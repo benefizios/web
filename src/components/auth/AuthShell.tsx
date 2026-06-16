@@ -13,11 +13,7 @@ export default function AuthShell({
   footer: React.ReactNode;
 }) {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 py-12">
-      <div className="pointer-events-none absolute inset-x-0 -top-40 h-[480px]">
-        <div className="brand-glow absolute inset-0" />
-      </div>
-
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[linear-gradient(90deg,#ffe693_0%,#fff3cf_100%)] px-5 py-12">
       <div className="relative w-full max-w-sm">
         <Link href="/" className="mb-8 flex justify-center" aria-label="Inicio">
           <Image

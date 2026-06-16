@@ -48,7 +48,7 @@ export async function signIn(
   if (error) return { error: traducirError(error.message) };
 
   revalidatePath("/", "layout");
-  redirect("/cuenta");
+  redirect("/beneficios");
 }
 
 export async function signUp(

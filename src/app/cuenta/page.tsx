@@ -29,6 +29,9 @@ export default async function CuentaPage({
   const nombre = profile?.full_name?.split(" ")[0] ?? "";
   const isActive = profile?.membership_status === "active";
   const isAdmin = profile?.role === "admin";
+  // La membresía aún no está disponible: ocultamos el bloque de "Activar membresía".
+  // Cambiar a true para volver a mostrarlo cuando exista la pasarela de pago.
+  const showMembershipUpsell = false;
   const { activada } = await searchParams;
 
   return (
@@ -83,7 +86,7 @@ export default async function CuentaPage({
                 Ver beneficios
               </Link>
             </div>
-          ) : (
+          ) : showMembershipUpsell ? (
             <div className="mt-6 rounded-2xl border border-haze bg-mist/40 p-5">
               <p className="font-display font-bold text-ink">
                 Tu membresía no está activa
@@ -104,7 +107,7 @@ export default async function CuentaPage({
                 Explorar beneficios
               </Link>
             </div>
-          )}
+          ) : null}
 
           {isAdmin && (
             <Link

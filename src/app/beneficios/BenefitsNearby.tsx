@@ -72,7 +72,7 @@ export default function BenefitsNearby() {
   async function fetchSuggestions(q: string) {
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&limit=5&accept-language=es&q=${encodeURIComponent(
+        `https://nominatim.openstreetmap.org/search?format=json&limit=5&accept-language=es&countrycodes=mx&q=${encodeURIComponent(
           q,
         )}`,
       );
@@ -96,11 +96,11 @@ export default function BenefitsNearby() {
   function onQueryChange(v: string) {
     setQuery(v);
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    if (v.trim().length < 3) {
+    if (v.trim().length < 2) {
       setSuggestions([]);
       return;
     }
-    debounceRef.current = setTimeout(() => fetchSuggestions(v), 450);
+    debounceRef.current = setTimeout(() => fetchSuggestions(v), 350);
   }
 
   function selectSuggestion(s: { label: string; lat: number; lng: number }) {
@@ -120,7 +120,7 @@ export default function BenefitsNearby() {
       selectSuggestion(suggestions[0]);
       return;
     }
-    if (query.trim().length >= 3) fetchSuggestions(query);
+    if (query.trim().length >= 2) fetchSuggestions(query);
   }
 
   function useMyLocation() {
