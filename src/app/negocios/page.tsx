@@ -8,7 +8,7 @@ import NegociosForm from "./NegociosForm";
 export const metadata: Metadata = {
   title: "Suma tu negocio",
   description:
-    "Estar en Benefizios es gratis. Solo das el descuento cuando un cliente realmente compra: si no vendes, no gastas. Llega a miles de miembros que buscan dónde gastar cerca de ti.",
+    "Da a conocer tu negocio y llega a miembros de Benefizios que ya buscan dónde gastar cerca de ti. Sumarte es gratis: tú eliges el descuento y solo aplica cuando hay venta.",
 };
 
 const ventajas = [
@@ -82,13 +82,12 @@ export default function NegociosPage() {
               Para negocios
             </span>
             <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl">
-              Tu negocio no pierde
-              <br className="hidden sm:block" /> nada por estar en <Brand />
+              Clientes nuevos que
+              <br className="hidden sm:block" /> ya quieren comprar
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-lg text-ink/60">
-              Sumarte es gratis. El descuento solo se aplica cuando un cliente
-              realmente compra. <b className="text-ink/80">Si no vendes, no
-              gastas.</b>
+              Miembros de <Brand /> buscan dónde gastar cerca de ti. Muéstrales
+              tu negocio y date a conocer, <b className="text-ink/80">gratis</b>.
             </p>
 
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
