@@ -109,6 +109,21 @@ export default async function CuentaPage({
             </div>
           ) : null}
 
+          <Link
+            href="/refiere"
+            className="mt-4 flex items-center justify-between rounded-2xl border border-brand/40 bg-[#fff3cf] px-5 py-4 transition-transform duration-200 ease-snappy hover:scale-[1.01]"
+          >
+            <span>
+              <span className="block font-display text-sm font-bold text-ink">
+                Refiere y gana 💸
+              </span>
+              <span className="block text-xs text-ink/60">
+                $99 por cada amigo que se suma
+              </span>
+            </span>
+            <span className="text-ink/40">→</span>
+          </Link>
+
           {isAdmin && (
             <Link
               href="/admin"

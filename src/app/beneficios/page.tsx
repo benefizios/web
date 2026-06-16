@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import AppHeader from "@/components/site/AppHeader";
 import BenefitsNearby from "./BenefitsNearby";
 
 export const metadata: Metadata = { title: "Beneficios" };
@@ -23,26 +23,7 @@ export default async function BeneficiosPage() {
 
   return (
     <main className="min-h-screen bg-[linear-gradient(90deg,#ffe693_0%,#fff3cf_100%)]">
-      <header className="border-b border-black/5 bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
-          <Link href="/cuenta">
-            <Image
-              src="/logo-benefizios.png"
-              alt="Benefizios"
-              width={130}
-              height={36}
-              className="h-6 w-auto"
-              unoptimized
-            />
-          </Link>
-          <Link
-            href="/cuenta"
-            className="text-sm font-semibold text-ink/70 hover:text-ink"
-          >
-            Mi cuenta
-          </Link>
-        </div>
-      </header>
+      <AppHeader active="beneficios" />
 
       <div className="mx-auto max-w-5xl px-5 py-10 sm:px-8">
         <h1 className="font-display text-3xl font-bold tracking-tight text-ink">

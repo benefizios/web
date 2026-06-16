@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { signUp, type AuthState } from "@/app/auth/actions";
 import { Field } from "@/components/auth/AuthShell";
 import Turnstile from "@/components/auth/Turnstile";
@@ -10,6 +11,7 @@ export default function RegistroForm() {
     signUp,
     undefined,
   );
+  const ref = useSearchParams().get("ref")?.trim() ?? "";
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +28,12 @@ export default function RegistroForm() {
 
   return (
     <form action={action} className="space-y-4">
+      {ref && <input type="hidden" name="ref" value={ref} />}
+      {ref && (
+        <p className="rounded-xl bg-brand/15 px-4 py-3 text-center text-sm font-semibold text-ink">
+          🎉 Te invitó un amigo. ¡Bienvenido!
+        </p>
+      )}
       {state?.error && (
         <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
           {state.error}

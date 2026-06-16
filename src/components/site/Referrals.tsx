@@ -3,8 +3,8 @@ import Reveal from "@/components/Reveal";
 
 const cards = [
   { k: "Compartes", v: "Enlace, WhatsApp o QR", icon: "🔗" },
-  { k: "Se suma", v: "Tu referido paga", icon: "🤝" },
-  { k: "Cobras", v: "Directo a tu tarjeta", icon: "💳" },
+  { k: "Se suma", v: "Tu referido se inscribe", icon: "🤝" },
+  { k: "Cobras", v: "$99 a tu tarjeta", icon: "💳" },
 ];
 
 export default function Referrals() {
@@ -19,9 +19,9 @@ export default function Referrals() {
                 Tu red te paga
               </h2>
               <p className="mt-4 max-w-md text-ink/70">
-                Cada vez que compartes tu enlace o código QR y alguien se suma
-                con su pago, te pagamos un monto fijo directo a la tarjeta con la
-                que te registraste. Así de simple.
+                Cada vez que compartes tu enlace o código QR y un amigo se
+                inscribe, te pagamos <b className="text-ink">$99</b> directo a la
+                tarjeta con la que te registraste. Así de simple.
               </p>
               <Link
                 href="/registro"

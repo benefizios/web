@@ -81,13 +81,14 @@ export async function signUp(
 
   const captchaToken =
     String(formData.get("cf-turnstile-response") ?? "") || undefined;
+  const ref = String(formData.get("ref") ?? "").trim() || undefined;
   const supabase = await createClient();
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      data: { full_name: fullName },
-      emailRedirectTo: `${siteUrl()}/auth/confirm?next=/cuenta`,
+      data: { full_name: fullName, ...(ref ? { ref } : {}) },
+      emailRedirectTo: `${siteUrl()}/auth/confirm?next=/beneficios`,
       captchaToken,
     },
   });

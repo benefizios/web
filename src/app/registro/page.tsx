@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import AuthShell from "@/components/auth/AuthShell";
 import Brand from "@/components/Brand";
 import RegistroForm from "./RegistroForm";
@@ -24,7 +25,9 @@ export default function RegistroPage() {
         </>
       }
     >
-      <RegistroForm />
+      <Suspense fallback={null}>
+        <RegistroForm />
+      </Suspense>
     </AuthShell>
   );
 }

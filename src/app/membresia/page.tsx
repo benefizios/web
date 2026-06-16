@@ -44,12 +44,31 @@ export default async function MembresiaPage() {
         <div className="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-xl">
           {/* Resumen del plan */}
           <div className="bg-ink px-7 py-6 text-white">
-            <p className="text-sm text-white/60">Membresía mensual</p>
-            <p className="mt-1 font-display text-3xl font-bold">
-              $99 <span className="text-base font-medium text-white/60">MXN / mes</span>
-            </p>
-            <p className="mt-1 text-xs text-white/50">
-              Cancela cuando quieras. Acceso a todos los <Brand />.
+            <div className="flex items-end justify-between">
+              <div>
+                <p className="text-sm text-white/60">Inscripción</p>
+                <p className="mt-1 font-display text-3xl font-bold">
+                  $199{" "}
+                  <span className="text-base font-medium text-white/60">
+                    MXN
+                  </span>
+                </p>
+                <p className="text-xs text-white/40">única vez</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-white/60">Membresía</p>
+                <p className="mt-1 font-display text-3xl font-bold">
+                  $99{" "}
+                  <span className="text-base font-medium text-white/60">
+                    / mes
+                  </span>
+                </p>
+                <p className="text-xs text-white/40">cancela cuando quieras</p>
+              </div>
+            </div>
+            <p className="mt-4 border-t border-white/10 pt-3 text-xs text-white/50">
+              Acceso a todos los <Brand /> cerca de ti. Invita amigos y recupera
+              tu inscripción: ganas $99 por cada uno.
             </p>
           </div>
 
