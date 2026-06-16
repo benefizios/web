@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { searchNearbyBenefits, type NearbyBenefit } from "./actions";
 import {
@@ -28,6 +28,10 @@ export default function BenefitsNearby() {
   const [searched, setSearched] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+  const [suggestions, setSuggestions] = useState<
+    { label: string; lat: number; lng: number }[]
+  >([]);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   function persist(c: Center, r: number) {
     try {
@@ -65,33 +69,58 @@ export default function BenefitsNearby() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function geocode(e: React.FormEvent) {
-    e.preventDefault();
-    if (!query.trim()) return;
-    setError(null);
+  async function fetchSuggestions(q: string) {
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=es&q=${encodeURIComponent(
-          query,
+        `https://nominatim.openstreetmap.org/search?format=json&limit=5&accept-language=es&q=${encodeURIComponent(
+          q,
         )}`,
       );
-      const data = await res.json();
-      if (!data[0]) {
-        setError("No encontramos esa ubicación. Prueba con otra.");
-        return;
-      }
-      const c = {
-        lat: parseFloat(data[0].lat),
-        lng: parseFloat(data[0].lon),
-        label: data[0].display_name.split(",").slice(0, 3).join(", "),
-      };
-      setCenter(c);
-      setQuery(c.label);
-      persist(c, radius);
-      runSearch(c, radius);
+      const data = (await res.json()) as {
+        display_name: string;
+        lat: string;
+        lon: string;
+      }[];
+      setSuggestions(
+        data.map((d) => ({
+          label: d.display_name.split(",").slice(0, 4).join(", "),
+          lat: parseFloat(d.lat),
+          lng: parseFloat(d.lon),
+        })),
+      );
     } catch {
-      setError("No pudimos buscar la ubicación. Intenta de nuevo.");
+      setSuggestions([]);
     }
+  }
+
+  function onQueryChange(v: string) {
+    setQuery(v);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (v.trim().length < 3) {
+      setSuggestions([]);
+      return;
+    }
+    debounceRef.current = setTimeout(() => fetchSuggestions(v), 450);
+  }
+
+  function selectSuggestion(s: { label: string; lat: number; lng: number }) {
+    const c = { lat: s.lat, lng: s.lng, label: s.label };
+    setError(null);
+    setCenter(c);
+    setQuery(s.label);
+    setSuggestions([]);
+    persist(c, radius);
+    runSearch(c, radius);
+  }
+
+  function geocode(e: React.FormEvent) {
+    e.preventDefault();
+    // Al enviar, usamos la primera sugerencia (la lista guía la elección).
+    if (suggestions.length > 0) {
+      selectSuggestion(suggestions[0]);
+      return;
+    }
+    if (query.trim().length >= 3) fetchSuggestions(query);
   }
 
   function useMyLocation() {
@@ -149,12 +178,31 @@ export default function BenefitsNearby() {
       {/* Controles de ubicación */}
       <div className="rounded-2xl border border-black/5 bg-white p-4 sm:p-5">
         <form onSubmit={geocode} className="flex flex-col gap-3 sm:flex-row">
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ciudad, colonia o dirección…"
-            className="w-full rounded-xl border border-haze bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand"
-          />
+          <div className="relative w-full">
+            <input
+              value={query}
+              onChange={(e) => onQueryChange(e.target.value)}
+              onBlur={() => setTimeout(() => setSuggestions([]), 150)}
+              placeholder="Ciudad, colonia o dirección…"
+              autoComplete="off"
+              className="w-full rounded-xl border border-haze bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-brand"
+            />
+            {suggestions.length > 0 && (
+              <ul className="absolute inset-x-0 top-full z-20 mt-1 max-h-72 overflow-auto rounded-xl border border-haze bg-white py-1 shadow-xl">
+                {suggestions.map((s, i) => (
+                  <li key={i}>
+                    <button
+                      type="button"
+                      onClick={() => selectSuggestion(s)}
+                      className="block w-full px-4 py-2.5 text-left text-sm text-ink/80 transition-colors hover:bg-mist"
+                    >
+                      📍 {s.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
           <button
             type="submit"
             className="rounded-xl bg-ink px-5 py-3 text-sm font-bold text-white transition-transform duration-200 ease-snappy active:scale-[0.97]"
