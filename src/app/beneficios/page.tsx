@@ -22,7 +22,7 @@ export default async function BeneficiosPage() {
   const isActive = profile?.membership_status === "active";
 
   return (
-    <main className="min-h-screen bg-cream bg-[linear-gradient(180deg,#ffe27a_0%,#ffeec0_190px,#fffdf5_520px)]">
+    <main className="min-h-screen bg-[linear-gradient(90deg,#ffe693_0%,#fff3cf_100%)]">
       <header className="border-b border-black/5 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
           <Link href="/cuenta">
@@ -53,14 +53,14 @@ export default async function BeneficiosPage() {
         </p>
 
         {!isActive && (
-          <div className="mt-6 flex flex-col items-start justify-between gap-3 rounded-2xl border border-brand/40 bg-brand/10 p-5 sm:flex-row sm:items-center">
-            <p className="text-sm font-medium text-ink">
+          <div className="mt-6 flex flex-col items-start justify-between gap-3 rounded-2xl bg-ink p-5 sm:flex-row sm:items-center">
+            <p className="text-sm font-medium text-white">
               🔓 Estás explorando. Activa tu membresía para canjear cualquiera de
               estos beneficios.
             </p>
             <Link
               href="/membresia"
-              className="shrink-0 rounded-full bg-ink px-5 py-2.5 text-sm font-bold text-white transition-transform duration-200 ease-snappy hover:scale-[1.03] active:scale-[0.97]"
+              className="shrink-0 rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-ink transition-transform duration-200 ease-snappy hover:scale-[1.03] active:scale-[0.97]"
             >
               Activar membresía
             </Link>

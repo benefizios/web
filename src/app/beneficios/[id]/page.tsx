@@ -60,7 +60,7 @@ export default async function RedeemPage({
   const fav = await isFavorite(b.id);
 
   return (
-    <main className="min-h-screen bg-cream bg-[linear-gradient(180deg,#ffe27a_0%,#ffeec0_190px,#fffdf5_520px)]">
+    <main className="min-h-screen bg-[linear-gradient(90deg,#ffe693_0%,#fff3cf_100%)]">
       <header className="border-b border-black/5 bg-white">
         <div className="mx-auto flex max-w-lg items-center justify-between px-5 py-4">
           <Link href="/beneficios" className="text-sm font-semibold text-ink/70 hover:text-ink">
