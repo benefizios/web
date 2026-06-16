@@ -22,7 +22,7 @@ export default async function BeneficiosPage() {
   const isActive = profile?.membership_status === "active";
 
   return (
-    <main className="min-h-screen bg-cream">
+    <main className="min-h-screen bg-cream bg-[linear-gradient(180deg,#ffe27a_0%,#ffeec0_190px,#fffdf5_520px)]">
       <header className="border-b border-black/5 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
           <Link href="/cuenta">

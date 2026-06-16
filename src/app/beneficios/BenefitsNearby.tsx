@@ -269,21 +269,21 @@ export default function BenefitsNearby() {
                   key={b.id}
                   className="group relative rounded-2xl border border-black/5 bg-white p-5 transition-all duration-200 ease-snappy hover:-translate-y-0.5 hover:shadow-lg"
                 >
-                  <div className="flex items-start justify-between">
+                  <FavoriteButton
+                    benefitId={b.id}
+                    favorite={favIds.has(b.id)}
+                    onToggle={handleToggleFav}
+                    className="absolute right-3 top-3 z-10"
+                  />
+                  <div className="flex h-[104px] items-center justify-center px-2">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={GENERIC_LOGO}
                       alt=""
-                      className="h-6 w-auto max-w-[55%] object-contain object-left"
-                    />
-                    <FavoriteButton
-                      benefitId={b.id}
-                      favorite={favIds.has(b.id)}
-                      onToggle={handleToggleFav}
-                      className="relative z-10"
+                      className="max-h-[92px] w-[200px] max-w-full object-contain"
                     />
                   </div>
-                  <p className="mt-4 font-display text-base font-bold text-ink">
+                  <p className="mt-3 font-display text-base font-bold text-ink">
                     {b.business}
                   </p>
                   <p className="mt-0.5 text-sm text-ink/65">{b.title}</p>

@@ -30,21 +30,21 @@ export function brandedEmail({
          </td></tr>`
       : "";
   return `<!doctype html>
-<html lang="es"><body style="margin:0;background:#f2f2f2">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f2f2f2;padding:32px 12px;font-family:Arial,Helvetica,sans-serif">
+<html lang="es"><body style="margin:0;background-color:#ffe49a">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#ffe49a;background-image:linear-gradient(180deg,#ffcb03 0%,#ffdc5e 26%,#ffeeb3 55%,#fff8df 100%);padding:56px 14px;font-family:Arial,Helvetica,sans-serif">
   <tr><td align="center">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border-radius:20px;overflow:hidden;border:1px solid #eee">
-      <tr><td style="background:#ffcb03;padding:22px 32px">
-        <img src="${SITE}/logo-benefizios.png" alt="Benefizios" height="24" style="display:block;border:0;height:24px">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border-radius:24px;overflow:hidden;border:1px solid rgba(0,0,0,0.05)">
+      <tr><td style="padding:34px 32px 6px" align="center">
+        <img src="${SITE}/logo-benefizios.png" alt="Benefizios" height="34" style="display:block;border:0;height:34px">
       </td></tr>
-      <tr><td style="padding:32px">
-        <h1 style="margin:0 0 12px;font-size:22px;line-height:1.25;color:#232323">${heading}</h1>
-        <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:#555">${body}</p>
-        <table role="presentation" cellpadding="0" cellspacing="0">${button}</table>
+      <tr><td style="padding:14px 36px 36px" align="center">
+        <h1 style="margin:0 0 12px;font-size:23px;line-height:1.25;color:#232323">${heading}</h1>
+        <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#555">${body}</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" align="center">${button}</table>
         ${footnote ? `<p style="margin:24px 0 0;font-size:12px;line-height:1.5;color:#999">${footnote}</p>` : ""}
       </td></tr>
     </table>
-    <p style="max-width:480px;margin:16px auto 0;font-size:11px;color:#aaa;text-align:center">
+    <p style="max-width:480px;margin:18px auto 0;font-size:11px;color:#8a7a3a;text-align:center">
       Benefizios · Tu decisión inteligente
     </p>
   </td></tr>

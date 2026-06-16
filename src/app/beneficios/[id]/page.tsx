@@ -60,7 +60,7 @@ export default async function RedeemPage({
   const fav = await isFavorite(b.id);
 
   return (
-    <main className="min-h-screen bg-cream">
+    <main className="min-h-screen bg-cream bg-[linear-gradient(180deg,#ffe27a_0%,#ffeec0_190px,#fffdf5_520px)]">
       <header className="border-b border-black/5 bg-white">
         <div className="mx-auto flex max-w-lg items-center justify-between px-5 py-4">
           <Link href="/beneficios" className="text-sm font-semibold text-ink/70 hover:text-ink">
@@ -80,12 +80,12 @@ export default async function RedeemPage({
       <div className="mx-auto max-w-lg px-5 py-8">
         {/* Encabezado del beneficio */}
         <div className="text-center">
-          <div className="mx-auto inline-flex items-center justify-center rounded-2xl border border-black/5 bg-white px-6 py-4 shadow-sm">
+          <div className="mx-auto inline-flex items-center justify-center rounded-2xl border border-black/5 bg-white px-10 py-7 shadow-sm">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={GENERIC_LOGO}
               alt={b.business?.name ?? "Logo"}
-              className="h-7 w-auto object-contain"
+              className="max-h-[100px] w-[220px] max-w-full object-contain"
             />
           </div>
           <h1 className="mt-4 font-display text-2xl font-bold tracking-tight text-ink">
