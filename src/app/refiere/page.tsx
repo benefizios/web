@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import QRCode from "qrcode";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import AppHeader from "@/components/site/AppHeader";
 import ReferralShare from "@/components/referidos/ReferralShare";
 import Brand from "@/components/Brand";
@@ -28,6 +29,17 @@ export default async function RefierePage() {
     .single();
 
   const code = profile?.referral_code ?? null;
+
+  // Quiénes se registraron con este código (RLS solo deja ver el perfil propio,
+  // por eso usamos el cliente admin del lado del servidor).
+  const admin = createAdminClient();
+  const { data: referred } = await admin
+    .from("profiles")
+    .select("full_name, created_at")
+    .eq("referred_by", user.id)
+    .order("created_at", { ascending: false });
+  const referredCount = referred?.length ?? 0;
+
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://benefizios.com";
   const link = code ? `${base}/registro?ref=${code}` : null;
   const message =
@@ -78,6 +90,49 @@ export default async function RefierePage() {
             momento.
           </div>
         )}
+
+        {/* Tus referidos */}
+        <div className="mt-7 rounded-3xl border border-black/5 bg-white p-6 shadow-xl sm:p-7">
+          <div className="flex items-center justify-between">
+            <h2 className="font-display text-lg font-bold text-ink">
+              Tus referidos
+            </h2>
+            <span className="rounded-full bg-brand/15 px-3 py-1 text-sm font-bold text-ink">
+              {referredCount}
+            </span>
+          </div>
+
+          {referredCount > 0 ? (
+            <ul className="mt-4 divide-y divide-black/5">
+              {referred!.map((r, i) => (
+                <li
+                  key={i}
+                  className="flex items-center justify-between py-2.5"
+                >
+                  <span className="text-sm font-medium text-ink">
+                    {r.full_name?.split(" ")[0] ?? "Nuevo miembro"}
+                  </span>
+                  <span className="text-xs text-ink/50">
+                    {new Date(r.created_at as string).toLocaleDateString(
+                      "es-MX",
+                      { day: "numeric", month: "short", year: "numeric" },
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 text-sm text-ink/55">
+              Todavía no tienes referidos. Comparte tu enlace o QR para empezar a
+              ganar.
+            </p>
+          )}
+
+          <p className="mt-4 text-xs text-ink/45">
+            El pago de $99 por cada referido se habilitará junto con los pagos
+            reales.
+          </p>
+        </div>
 
         {/* Cómo funciona */}
         <div className="mt-7 grid gap-3 sm:grid-cols-3">

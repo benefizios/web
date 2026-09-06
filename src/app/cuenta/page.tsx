@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/app/auth/actions";
 import { deactivateMembership } from "@/app/membresia/actions";
+import AppHeader from "@/components/site/AppHeader";
 import Brand from "@/components/Brand";
 
 export const metadata: Metadata = { title: "Mi cuenta" };
@@ -35,20 +35,9 @@ export default async function CuentaPage({
   const { activada } = await searchParams;
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[linear-gradient(90deg,#ffe693_0%,#fff3cf_100%)] px-5 py-12">
-      <div className="w-full max-w-md">
-        <div className="mb-8 flex justify-center">
-          <Link href="/beneficios" aria-label="Explorar beneficios">
-            <Image
-              src="/logo-benefizios.png"
-              alt="Benefizios"
-              width={160}
-              height={45}
-              className="h-8 w-auto"
-              unoptimized
-            />
-          </Link>
-        </div>
+    <main className="min-h-screen bg-[linear-gradient(90deg,#ffe693_0%,#fff3cf_100%)]">
+      <AppHeader active="cuenta" />
+      <div className="mx-auto w-full max-w-md px-5 py-12">
 
         <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-xl">
           <div className="text-center">
