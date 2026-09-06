@@ -17,6 +17,9 @@ envía Supabase, así que su diseño y su enlace se configuran en el dashboard:
 
 ## 2) Plantilla "Confirm signup"
 
+**Subject (asunto):** `Confirma tu cuenta en Benefizios`
+_(Supabase trae el asunto en inglés "Confirm Your Signup" — cámbialo por este.)_
+
 ```html
 <!doctype html>
 <html lang="es"><body style="margin:0;background-color:#ffe49a">
@@ -29,7 +32,7 @@ envía Supabase, así que su diseño y su enlace se configuran en el dashboard:
       <tr><td style="padding:14px 36px 36px" align="center">
         <h1 style="margin:0 0 12px;font-size:23px;color:#232323">Confirma tu cuenta</h1>
         <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#555">Gracias por unirte a Benefizios. Confirma tu correo para activar tu cuenta y empezar a ahorrar.</p>
-        <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/cuenta" style="display:inline-block;background:#232323;color:#fff;text-decoration:none;padding:14px 28px;border-radius:12px;font-weight:bold;font-size:15px">Confirmar mi correo</a>
+        <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/beneficios" style="display:inline-block;background:#232323;color:#fff;text-decoration:none;padding:14px 28px;border-radius:12px;font-weight:bold;font-size:15px">Confirmar mi correo</a>
         <p style="margin:24px 0 0;font-size:12px;color:#999">Si no creaste esta cuenta, puedes ignorar este correo.</p>
       </td></tr>
     </table>
@@ -40,6 +43,8 @@ envía Supabase, así que su diseño y su enlace se configuran en el dashboard:
 ```
 
 ## 3) Plantilla "Reset Password"
+
+**Subject (asunto):** `Restablece tu contraseña de Benefizios`
 
 ```html
 <!doctype html>
